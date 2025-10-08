@@ -6,7 +6,7 @@ class QuestionOption < ApplicationRecord
   # Validations
   validates :text, presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validate :questionnaire_not_locked, on: [:create, :update, :destroy]
+  validate :questionnaire_not_locked, on: [ :create, :update, :destroy ]
 
   private
 

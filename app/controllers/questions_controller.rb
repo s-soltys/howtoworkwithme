@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
-  before_action :set_category_and_check_locked, only: [:create]
-  before_action :set_question, only: [:update, :destroy]
-  before_action :check_question_questionnaire_not_locked, only: [:update, :destroy]
+  before_action :set_category_and_check_locked, only: [ :create ]
+  before_action :set_question, only: [ :update, :destroy ]
+  before_action :check_question_questionnaire_not_locked, only: [ :update, :destroy ]
 
   # POST /categories/:category_id/questions
   def create
@@ -77,7 +77,7 @@ class QuestionsController < ApplicationController
         format.turbo_stream { head :forbidden }
         format.html { redirect_to organization_path(@category.questionnaire.organization.unique_token), alert: "Questionnaire is locked" }
       end
-      return false
+      false
     end
   end
 
@@ -91,7 +91,7 @@ class QuestionsController < ApplicationController
         format.turbo_stream { head :forbidden }
         format.html { redirect_to organization_path(@question.category.questionnaire.organization.unique_token), alert: "Questionnaire is locked" }
       end
-      return false
+      false
     end
   end
 
@@ -102,7 +102,7 @@ class QuestionsController < ApplicationController
       :position,
       :required,
       :settings,
-      question_options_attributes: [:id, :text, :position, :_destroy]
+      question_options_attributes: [ :id, :text, :position, :_destroy ]
     )
   end
 end

@@ -13,10 +13,10 @@ class Question < ApplicationRecord
   validates :question_type, presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :choice_questions_need_options, if: :persisted?
-  validate :questionnaire_not_locked, on: [:create, :update, :destroy]
+  validate :questionnaire_not_locked, on: [ :create, :update, :destroy ]
 
   # Nested attributes
-  accepts_nested_attributes_for :question_options, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :question_options, allow_destroy: true, reject_if: proc { |attrs| attrs[:text].blank? }
 
   private
 

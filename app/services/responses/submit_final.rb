@@ -46,7 +46,7 @@ module Responses
       # Reload response with all associations for rendering
       response_with_associations = Response.includes(
         :employee,
-        answers: [:question, :selected_option, question: :question_options],
+        answers: [ :question, :selected_option, question: :question_options ],
         questionnaire: { categories: { questions: :question_options } }
       ).find(@response.id)
 

@@ -7,7 +7,7 @@ class CreateCategories < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :categories, [:questionnaire_id, :name], unique: true
-    add_index :categories, [:questionnaire_id, :position]
+    add_index :categories, [ :questionnaire_id, :name ], unique: true
+    add_index :categories, [ :questionnaire_id, :position ]
   end
 end

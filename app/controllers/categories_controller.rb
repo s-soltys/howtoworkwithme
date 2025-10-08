@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
-  before_action :set_questionnaire_and_check_locked, only: [:create]
-  before_action :set_category, only: [:update, :destroy]
-  before_action :check_category_questionnaire_not_locked, only: [:update, :destroy]
+  before_action :set_questionnaire_and_check_locked, only: [ :create ]
+  before_action :set_category, only: [ :update, :destroy ]
+  before_action :check_category_questionnaire_not_locked, only: [ :update, :destroy ]
 
   # POST /questionnaires/:unique_token/categories
   def create
@@ -77,7 +77,7 @@ class CategoriesController < ApplicationController
         format.turbo_stream { head :forbidden }
         format.html { redirect_to organization_path(@questionnaire.organization.unique_token), alert: "Questionnaire is locked" }
       end
-      return false
+      false
     end
   end
 
@@ -91,7 +91,7 @@ class CategoriesController < ApplicationController
         format.turbo_stream { head :forbidden }
         format.html { redirect_to organization_path(@category.questionnaire.organization.unique_token), alert: "Questionnaire is locked" }
       end
-      return false
+      false
     end
   end
 

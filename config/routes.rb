@@ -18,32 +18,32 @@ Rails.application.routes.draw do
   # User Story 2: Employer creates organization and configures questionnaire
   root "organizations#new"
 
-  resources :organizations, param: :unique_token, only: [:create, :show] do
-    resources :questionnaires, only: [:new, :create], shallow: true
+  resources :organizations, param: :unique_token, only: [ :create, :show ] do
+    resources :questionnaires, only: [ :new, :create ], shallow: true
   end
 
   # User Story 1: Employee completes questionnaire and generates profile
-  resources :questionnaires, param: :unique_token, only: [:show, :edit] do
+  resources :questionnaires, param: :unique_token, only: [ :show, :edit ] do
     member do
       post :start
       post :generate_link
       get :responses, to: "questionnaires#responses"
     end
 
-    resources :categories, only: [:create]
+    resources :categories, only: [ :create ]
   end
 
-  resources :categories, only: [:update, :destroy] do
-    resources :questions, only: [:create]
+  resources :categories, only: [ :update, :destroy ] do
+    resources :questions, only: [ :create ]
   end
 
-  resources :questions, only: [:update, :destroy]
+  resources :questions, only: [ :update, :destroy ]
 
-  resources :responses, param: :unique_token, only: [:edit, :update] do
+  resources :responses, param: :unique_token, only: [ :edit, :update ] do
     member do
       post :submit
     end
   end
 
-  resources :profiles, param: :unique_token, only: [:show]
+  resources :profiles, param: :unique_token, only: [ :show ]
 end

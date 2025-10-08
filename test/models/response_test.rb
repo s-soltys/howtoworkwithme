@@ -54,6 +54,6 @@ class ResponseTest < ActiveSupport::TestCase
     old = quest.responses.create!(status: "submitted", submitted_at: 2.days.ago)
     new = quest.responses.create!(status: "submitted", submitted_at: 1.day.ago)
 
-    assert_equal [new, old], Response.most_recent_first.to_a
+    assert_equal [ new, old ], Response.most_recent_first.to_a
   end
 end

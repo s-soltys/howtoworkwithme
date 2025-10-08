@@ -10,6 +10,6 @@ class CreateQuestions < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :questions, [:category_id, :position]
+    add_index :questions, [ :category_id, :position ]
   end
 end

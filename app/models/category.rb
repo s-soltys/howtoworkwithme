@@ -7,7 +7,7 @@ class Category < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: { scope: :questionnaire_id }
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validate :questionnaire_not_locked, on: [:create, :update, :destroy]
+  validate :questionnaire_not_locked, on: [ :create, :update, :destroy ]
 
   private
 

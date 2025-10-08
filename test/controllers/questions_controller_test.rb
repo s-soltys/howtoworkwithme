@@ -32,6 +32,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
             question: {
               text: "Communication preference?",
               question_type: "single_choice",
+              position: 1,
               required: true,
               question_options_attributes: [
                 { text: "Email", position: 1 },

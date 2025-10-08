@@ -10,7 +10,7 @@ class CreateAnswers < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :answers, [:response_id, :question_id], unique: true
+    add_index :answers, [ :response_id, :question_id ], unique: true
     add_index :answers, :selected_option_ids, using: :gin
   end
 end

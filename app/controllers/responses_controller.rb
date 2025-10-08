@@ -1,5 +1,5 @@
 class ResponsesController < ApplicationController
-  before_action :find_response, only: [:edit, :update, :submit]
+  before_action :find_response, only: [ :edit, :update, :submit ]
 
   # GET /responses/:unique_token/edit
   def edit
@@ -69,7 +69,7 @@ class ResponsesController < ApplicationController
 
   def response_params
     params.require(:response).permit(
-      answers_attributes: [:id, :question_id, :text_value, :selected_option_id, :boolean_value, selected_option_ids: []]
+      answers_attributes: [ :id, :question_id, :text_value, :selected_option_id, :boolean_value, selected_option_ids: [] ]
     )
   end
 end

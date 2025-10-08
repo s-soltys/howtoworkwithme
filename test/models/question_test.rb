@@ -32,7 +32,14 @@ class QuestionTest < ActiveSupport::TestCase
     org = Organization.create!(name: "Acme")
     quest = org.questionnaires.create!(title: "Survey")
     category = quest.categories.create!(name: "Personal", position: 1)
-    question = category.questions.build(question_type: "single_choice", text: "Choose", position: 1)
+    question = category.questions.create!(question_type: "single_choice", text: "Choose", position: 1)
+
+    # Add only 1 option
+    question.question_options.create!(text: "Option 1", position: 1)
+
+    # Validation should fail when we try to update with insufficient options
+    question.text = "Updated text"
     assert_not question.valid?
+    assert_includes question.errors[:base], "Choice questions must have at least 2 options"
   end
 end

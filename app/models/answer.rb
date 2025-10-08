@@ -35,7 +35,7 @@ class Answer < ApplicationRecord
   end
 
   def selected_options_exist
-    return unless question&.question_type.in?(["single_choice", "multiple_choice"])
+    return unless question&.question_type.in?([ "single_choice", "multiple_choice" ])
 
     available_option_ids = question.question_options.pluck(:id)
 

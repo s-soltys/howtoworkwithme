@@ -149,7 +149,7 @@ class ProfileViewingTest < ApplicationSystemTestCase
     response2.answers.create!(question: single_q, selected_option_id: single_q.question_options.first.id)
     response2.answers.create!(
       question: multi_q,
-      selected_option_ids: [multi_q.question_options.first.id, multi_q.question_options.last.id]
+      selected_option_ids: [ multi_q.question_options.first.id, multi_q.question_options.last.id ]
     )
     response2.answers.create!(question: yesno_q, boolean_value: true)
 

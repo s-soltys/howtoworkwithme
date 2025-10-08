@@ -457,37 +457,37 @@
 
 ### Edge Cases and Error Handling
 
-- [ ] T185 [P] [Polish] Implement 404 error page for invalid tokens in `app/views/errors/404.html.erb`
-- [ ] T186 [Polish] Add custom error handling in ApplicationController for ActiveRecord::RecordNotFound
-- [ ] T187 [Polish] Test 404 behavior: access invalid profile link, verify 404 page displayed
-- [ ] T188 [Polish] Add validation error display across all forms using DaisyUI alert components
-- [ ] T189 [Polish] Test validation errors: submit form with missing required field, verify error displayed
+- [X] T185 [P] [Polish] Implement 404 error page for invalid tokens in `app/views/errors/404.html.erb`
+- [X] T186 [Polish] Add custom error handling in ApplicationController for ActiveRecord::RecordNotFound
+- [X] T187 [Polish] Test 404 behavior: access invalid profile link, verify 404 page displayed
+- [X] T188 [Polish] Add validation error display across all forms using DaisyUI alert components
+- [X] T189 [Polish] Test validation errors: submit form with missing required field, verify error displayed
 
 ### Performance Optimization
 
-- [ ] T190 [Polish] Review all controller actions for N+1 queries, add `includes` where needed
-- [ ] T191 [Polish] Add database indexes review: verify all foreign keys indexed, composite indexes in place
+- [X] T190 [Polish] Review all controller actions for N+1 queries, add `includes` where needed
+- [X] T191 [Polish] Add database indexes review: verify all foreign keys indexed, composite indexes in place
 - [ ] T192 [Polish] Test performance: create questionnaire with 20 questions, have 50 employees respond, verify dashboard loads in <3s
 - [ ] T193 [Polish] Add pagination to responses table if exceeds 100 employees (optional future enhancement)
 
 ### User Experience Improvements
 
-- [ ] T194 [P] [Polish] Add flash messages for user actions (organization created, questionnaire saved, response submitted)
+- [X] T194 [P] [Polish] Add flash messages for user actions (organization created, questionnaire saved, response submitted)
 - [ ] T195 [Polish] Add loading indicators for form submissions using DaisyUI loading spinners
 - [ ] T196 [Polish] Add Turbo confirm dialogs for destructive actions (delete category, delete question, submit questionnaire)
 - [ ] T197 [Polish] Test UX flows: verify smooth transitions, appropriate feedback messages
 
 ### Documentation and Deployment Preparation
 
-- [ ] T198 [P] [Polish] Verify all routes are RESTful and follow Rails conventions
-- [ ] T199 [P] [Polish] Run Rubocop code style check: `bundle exec rubocop`
-- [ ] T200 [Polish] Fix Rubocop offenses or generate .rubocop_todo.yml
-- [ ] T201 [P] [Polish] Run Brakeman security scan: `bundle exec brakeman`
-- [ ] T202 [Polish] Address any Brakeman security warnings
-- [ ] T203 [P] [Polish] Update README with setup instructions from quickstart.md
+- [X] T198 [P] [Polish] Verify all routes are RESTful and follow Rails conventions
+- [X] T199 [P] [Polish] Run Rubocop code style check: `bundle exec rubocop`
+- [X] T200 [Polish] Fix Rubocop offenses or generate .rubocop_todo.yml
+- [X] T201 [P] [Polish] Run Brakeman security scan: `bundle exec brakeman`
+- [X] T202 [Polish] Address any Brakeman security warnings
+- [X] T203 [P] [Polish] Update README with setup instructions from quickstart.md
 - [ ] T204 [Polish] Run quickstart.md validation: follow setup instructions from scratch, verify app works
-- [ ] T205 [Polish] Run full test suite: `rails test` and `rails test:system`
-- [ ] T206 [Polish] Verify all tests pass with no warnings
+- [X] T205 [Polish] Run full test suite: `rails test` and `rails test:system`
+- [X] T206 [Polish] Verify all tests pass with no warnings
 
 ### Optional Enhancements (Future)
 
