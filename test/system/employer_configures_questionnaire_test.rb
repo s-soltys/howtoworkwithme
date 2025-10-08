@@ -39,7 +39,7 @@ class EmployerConfiguresQuestionnaireTest < ApplicationSystemTestCase
       click_button "Add Question"
     end
 
-    assert_text "What are your working hours?"
+    assert_text "What are your working hours?", wait: 5
   end
 
   test "employer reorders categories and questions" do
@@ -61,8 +61,8 @@ class EmployerConfiguresQuestionnaireTest < ApplicationSystemTestCase
     fill_in "Category name", with: "Test Category"
     click_button "Add Category"
 
-    # Wait for category to appear
-    assert_text "Test Category"
+    # Wait for category to appear with explicit timeout
+    assert_text "Test Category", wait: 5
 
     # Get the current URL to reload the page (simpler than visiting root and back)
     current_url_path = current_url
@@ -93,6 +93,6 @@ class EmployerConfiguresQuestionnaireTest < ApplicationSystemTestCase
     assert_text "This questionnaire is locked"
 
     # Buttons should be disabled
-    assert_selector "input[type='submit'][value='Add Category'][disabled]"
+    assert_selector "input[value='Add Category'][disabled='disabled']"
   end
 end

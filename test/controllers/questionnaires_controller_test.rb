@@ -55,10 +55,11 @@ class QuestionnairesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should redirect from edit when questionnaire is locked" do
+  test "should show edit page even when questionnaire is locked" do
     questionnaire = questionnaires(:locked_questionnaire)
     get edit_questionnaire_path(questionnaire.unique_token)
-    assert_redirected_to organization_path(questionnaire.organization.unique_token)
+    assert_response :success
+    assert_select "input[value='Add Category'][disabled='disabled']"
   end
 
   test "should get responses table" do

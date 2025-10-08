@@ -77,7 +77,9 @@ class EmployeeCompletesQuestionnaireTest < ApplicationSystemTestCase
     assert_text "Saved", wait: 5
 
     # Submit the questionnaire
-    click_button "Submit Questionnaire"
+    accept_confirm do
+      click_button "Submit Questionnaire"
+    end
 
     # Should be redirected to profile page
     assert_text "Alice Johnson's Profile"
@@ -104,7 +106,9 @@ class EmployeeCompletesQuestionnaireTest < ApplicationSystemTestCase
     click_button "Start Questionnaire"
 
     # Try to submit without answering required questions
-    click_button "Submit Questionnaire"
+    accept_confirm do
+      click_button "Submit Questionnaire"
+    end
 
     # Should see error message
     assert_text "Please answer all required questions"

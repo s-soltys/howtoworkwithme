@@ -8,6 +8,9 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_one :questionnaire, through: :category
 
+  # Callbacks
+  before_validation :set_position, on: :create
+
   # Validations
   validates :text, presence: true
   validates :question_type, presence: true
@@ -19,6 +22,11 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :question_options, allow_destroy: true, reject_if: proc { |attrs| attrs[:text].blank? }
 
   private
+
+  def set_position
+    return if position.present?
+    self.position = (category.questions.maximum(:position) || 0) + 1
+  end
 
   def choice_questions_need_options
     return unless single_choice? || multiple_choice?

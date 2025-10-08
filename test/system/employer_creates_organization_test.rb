@@ -14,8 +14,8 @@ class EmployerCreatesOrganizationTest < ApplicationSystemTestCase
     # Submit form
     click_button "Create Organization"
 
-    # Should see organization dashboard
-    assert_selector "h1", text: "Acme Corp Dashboard"
+    # Should see organization dashboard (with explicit wait for Turbo navigation)
+    assert_selector "h1", text: "Acme Corp Dashboard", wait: 5
     assert_text "Organization created successfully"
   end
 

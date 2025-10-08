@@ -3,7 +3,7 @@
     <div class="card-body">
       <h1 class="card-title text-3xl mb-4">Create Organization</h1>
 
-      <%= form_with model: @organization, local: true, class: "space-y-4" do |f| %>
+      <%= form_with model: @organization, class: "space-y-4" do |f| %>
         <% if @organization.errors.any? %>
           <div class="alert alert-error">
             <ul>

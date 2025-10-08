@@ -473,9 +473,9 @@
 ### User Experience Improvements
 
 - [X] T194 [P] [Polish] Add flash messages for user actions (organization created, questionnaire saved, response submitted)
-- [ ] T195 [Polish] Add loading indicators for form submissions using DaisyUI loading spinners
-- [ ] T196 [Polish] Add Turbo confirm dialogs for destructive actions (delete category, delete question, submit questionnaire)
-- [ ] T197 [Polish] Test UX flows: verify smooth transitions, appropriate feedback messages
+- [X] T195 [Polish] Add loading indicators for form submissions using DaisyUI loading spinners
+- [X] T196 [Polish] Add Turbo confirm dialogs for destructive actions (delete category, delete question, submit questionnaire)
+- [X] T197 [Polish] Test UX flows: verify smooth transitions, appropriate feedback messages
 
 ### Documentation and Deployment Preparation
 

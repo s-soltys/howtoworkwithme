@@ -13,7 +13,7 @@
         </div>
       <% end %>
 
-      <%= form_with url: start_questionnaire_path(@questionnaire.unique_token), method: :post, class: "space-y-4" do |f| %>
+      <%= form_with url: start_questionnaire_path(@questionnaire.unique_token), method: :post, class: "space-y-4", data: { controller: "loading" } do |f| %>
         <div class="form-control">
           <label class="label">
             <span class="label-text font-semibold">Your Name</span>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="card-actions justify-end mt-6">
-          <%= f.submit "Start Questionnaire", class: "btn btn-primary btn-lg w-full" %>
+          <%= f.submit "Start Questionnaire", class: "btn btn-primary btn-lg w-full", data: { loading_target: "submit" } %>
         </div>
       <% end %>
     </div>

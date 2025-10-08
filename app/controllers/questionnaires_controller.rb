@@ -1,6 +1,5 @@
 class QuestionnairesController < ApplicationController
   before_action :set_questionnaire, only: [ :show, :start, :edit, :generate_link, :responses ]
-  before_action :check_not_locked, only: [ :edit ]
 
   # GET /questionnaires/:unique_token
   def show

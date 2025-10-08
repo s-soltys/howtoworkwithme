@@ -94,7 +94,7 @@ class ProfileViewingTest < ApplicationSystemTestCase
     visit profile_path("invalid-token-that-does-not-exist")
 
     # Should see 404 page with error message
-    assert_text "page you were looking for"
+    assert_text "Page Not Found"
   end
 
   test "profile displays all answer types correctly" do
