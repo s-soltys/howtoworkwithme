@@ -1,0 +1,24 @@
+<div id="question_<%= question.id %>" class="card bg-base-100 mb-2">
+  <div class="card-body p-4">
+    <div class="flex justify-between items-start">
+      <div class="flex-1">
+        <p class="font-medium"><%= question.text %></p>
+        <div class="flex gap-2 mt-2">
+          <span class="badge badge-primary"><%= question.question_type.humanize %></span>
+          <% if question.required? %>
+            <span class="badge badge-error">Required</span>
+          <% end %>
+        </div>
+        <% if question.question_options.any? %>
+          <div class="mt-2 text-sm text-gray-600">
+            <strong>Options:</strong>
+            <%= question.question_options.order(:position).pluck(:text).join(", ") %>
+          </div>
+        <% end %>
+      </div>
+      <div class="flex gap-2">
+        <%= button_to "Delete", question_path(question), method: :delete, class: "btn btn-sm btn-error", data: { turbo_confirm: "Are you sure?" } %>
+      </div>
+    </div>
+  </div>
+</div>

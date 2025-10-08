@@ -1,0 +1,27 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Create Questionnaire</h1>
+
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <%= form_with model: @questionnaire, url: organization_questionnaires_path(@organization.unique_token), method: :post, class: "space-y-4", data: { controller: "loading" } do |form| %>
+          <div class="form-control">
+            <%= form.label :title, "Title", class: "label" %>
+            <%= form.text_field :title, class: "input input-bordered w-full", placeholder: "e.g., How to Work With Me", required: true %>
+          </div>
+
+          <div class="form-control">
+            <%= form.label :description, "Description", class: "label" %>
+            <%= form.text_area :description, class: "textarea textarea-bordered w-full", rows: 4, placeholder: "Describe the purpose of this questionnaire..." %>
+          </div>
+
+          <div class="card-actions justify-end">
+            <%= link_to "Cancel", organization_path(@organization.unique_token), class: "btn btn-ghost" %>
+            <%= form.submit "Create Questionnaire", class: "btn btn-primary", data: { loading_target: "submit" } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

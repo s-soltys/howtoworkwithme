@@ -1,0 +1,45 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold"><%= @organization.name %> Dashboard</h1>
+    <% if flash[:notice] %>
+      <div class="alert alert-success mt-4">
+        <span><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-warning mt-4">
+        <span><%= flash[:alert] %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="card-title text-2xl">Questionnaires</h2>
+        <%= link_to "Create Questionnaire", new_organization_questionnaire_path(@organization.unique_token), class: "btn btn-primary" %>
+      </div>
+
+      <% if @questionnaires.any? %>
+        <div class="space-y-4">
+          <% @questionnaires.each do |questionnaire| %>
+            <div class="card bg-base-200">
+              <div class="card-body">
+                <h3 class="card-title"><%= questionnaire.title %></h3>
+                <p><%= questionnaire.description %></p>
+                <div class="card-actions justify-end">
+                  <%= link_to "Configure", edit_questionnaire_path(questionnaire.unique_token), class: "btn btn-sm btn-ghost" %>
+                  <%= link_to "View Responses", responses_questionnaire_path(questionnaire.unique_token), class: "btn btn-sm btn-ghost" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="alert">
+          <span>No questionnaires yet. Create one to get started!</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

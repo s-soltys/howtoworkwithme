@@ -1,0 +1,10 @@
+<% if object.errors.any? %>
+  <div class="alert alert-error">
+    <h3 class="font-bold"><%= pluralize(object.errors.count, "error") %> prohibited this <%= object.model_name.human.downcase %> from being saved:</h3>
+    <ul class="list-disc list-inside">
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

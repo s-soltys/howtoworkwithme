@@ -1,0 +1,48 @@
+one:
+  category: one
+  question_type: "text"
+  text: "What are your preferred working hours?"
+  position: 1
+  required: true
+
+two:
+  category: one
+  question_type: "single_choice"
+  text: "Preferred communication method?"
+  position: 2
+  required: false
+
+pref_text_question:
+  category: pref_work_style
+  question_type: "text"
+  text: "Describe your ideal working environment"
+  position: 1
+  required: true
+
+pref_single_choice_question:
+  category: pref_communication
+  question_type: "single_choice"
+  text: "What is your preferred communication method?"
+  position: 1
+  required: true
+
+pref_multiple_choice_question:
+  category: pref_communication
+  question_type: "multiple_choice"
+  text: "Which communication tools do you prefer?"
+  position: 2
+  required: true
+
+pref_yes_no_question:
+  category: pref_collaboration
+  question_type: "yes_no"
+  text: "Do you prefer pair programming?"
+  position: 1
+  required: true
+
+pref_another_text_question:
+  category: pref_collaboration
+  question_type: "text"
+  text: "What time zone are you in?"
+  position: 2
+  required: false

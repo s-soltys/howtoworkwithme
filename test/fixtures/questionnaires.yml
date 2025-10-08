@@ -1,0 +1,39 @@
+one:
+  organization: one
+  title: "How to Work With Me"
+  description: "Tell us about your working preferences"
+  unique_token: "test-questionnaire-token-123"
+  active: true
+  locked_at: null
+
+two:
+  organization: two
+  title: "Team Preferences"
+  description: "Share your team preferences"
+  unique_token: "test-questionnaire-token-456"
+  active: true
+  locked_at: null
+
+unlocked_questionnaire:
+  organization: one
+  title: "Unlocked Questionnaire"
+  description: "This questionnaire is unlocked"
+  unique_token: "test-unlocked-questionnaire-token"
+  active: true
+  locked_at: null
+
+locked_questionnaire:
+  organization: one
+  title: "Locked Questionnaire"
+  description: "This questionnaire is locked"
+  unique_token: "test-locked-questionnaire-token"
+  active: true
+  locked_at: <%= 1.day.ago %>
+
+employee_preferences:
+  organization: acme
+  title: "Employee Preferences Survey"
+  description: "Share your working preferences with the team"
+  unique_token: "employee-preferences-token-123"
+  active: true
+  locked_at: null

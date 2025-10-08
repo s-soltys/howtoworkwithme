@@ -1,0 +1,9 @@
+<div class="toast toast-top toast-center z-50">
+  <% flash.each do |type, message| %>
+    <div class="alert <%= alert_class(type) %> shadow-lg">
+      <div>
+        <span><%= message %></span>
+      </div>
+    </div>
+  <% end %>
+</div>

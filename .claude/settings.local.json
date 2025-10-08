@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(.specify/scripts/bash/common.sh:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "Bash(.specify/scripts/bash/setup-plan.sh:*)",
+      "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
+      "Bash(cat:*)",
+      "Bash(rails --version)",
+      "WebSearch",
+      "Bash(bundle install:*)",
+      "Bash(rails:*)",
+      "Bash(fi)",
+      "Bash(mkdir:*)",
+      "Bash(bundle exec:*)",
+      "Bash(RAILS_ENV=test rails db:reset)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

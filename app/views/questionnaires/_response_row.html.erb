@@ -1,0 +1,11 @@
+<tr id="response_<%= response.id %>">
+  <td class="sticky left-0 bg-base-100 font-semibold">
+    <%= response.employee&.name || "Anonymous" %>
+  </td>
+  <% questions.each do |question| %>
+    <td class="text-sm">
+      <% answer = find_answer(response, question) %>
+      <%= format_answer(answer) %>
+    </td>
+  <% end %>
+</tr>

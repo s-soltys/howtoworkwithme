@@ -1,0 +1,47 @@
+<div class="container mx-auto p-4">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h1 class="card-title text-3xl"><%= @questionnaire.title %> - Employee Responses</h1>
+      <p class="text-sm text-gray-600"><%= @questionnaire.description %></p>
+
+      <div class="divider"></div>
+
+      <% if @responses.any? %>
+        <div class="overflow-x-auto" data-controller="turbo-stream" data-turbo-stream-channel-value="questionnaire_<%= @questionnaire.id %>_responses">
+          <%= turbo_stream_from "questionnaire_#{@questionnaire.id}_responses" %>
+
+          <table class="table table-zebra w-full">
+            <thead>
+              <tr>
+                <th class="sticky left-0 bg-base-200 z-10">Employee</th>
+                <% @categories.each do |category| %>
+                  <% category.questions.order(:position).each do |question| %>
+                    <th class="text-xs">
+                      <div class="font-bold text-primary"><%= category.name %></div>
+                      <div class="font-normal"><%= truncate(question.text, length: 50) %></div>
+                    </th>
+                  <% end %>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody id="responses_table_body">
+              <% @responses.each do |response| %>
+                <%= render partial: "questionnaires/response_row", locals: { response: response, questions: @questions } %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="alert alert-info">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>No responses yet. Share the questionnaire link with employees to collect responses.</span>
+        </div>
+      <% end %>
+
+      <div class="card-actions justify-end mt-6">
+        <%= link_to "Back to Configuration", edit_questionnaire_path(@questionnaire.unique_token), class: "btn btn-outline" %>
+        <%= link_to "Back to Dashboard", organization_path(@questionnaire.organization.unique_token), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
