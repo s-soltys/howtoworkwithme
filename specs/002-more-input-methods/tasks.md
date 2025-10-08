@@ -20,10 +20,10 @@
 
 **Purpose**: Project initialization and dependency installation
 
-- [ ] T001 [P] Pin SortableJS via importmap: `bin/importmap pin sortablejs`
-- [ ] T002 [P] Pin Chart.js via importmap: `bin/importmap pin chart.js`
-- [ ] T003 [P] Pin chartjs-plugin-dragdata: `bin/importmap pin chartjs-plugin-dragdata`
-- [ ] T004 Run bundle install to ensure all gems are current
+- [X] T001 [P] Pin SortableJS via importmap: `bin/importmap pin sortablejs`
+- [X] T002 [P] Pin Chart.js via importmap: `bin/importmap pin chart.js`
+- [X] T003 [P] Pin chartjs-plugin-dragdata: `bin/importmap pin chartjs-plugin-dragdata`
+- [X] T004 Run bundle install to ensure all gems are current
 
 ---
 
