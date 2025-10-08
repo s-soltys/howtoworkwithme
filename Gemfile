@@ -68,4 +68,5 @@ gem "tailwindcss-rails", "~> 4.3"
 
 # Admin interface with minimal dependencies
 gem "activeadmin"
+gem "activeadmin_assets" # Pre-compiled assets for Propshaft compatibility
 gem "devise" # Required by ActiveAdmin for authentication
