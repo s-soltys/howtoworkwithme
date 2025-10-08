@@ -101,7 +101,7 @@ class QuestionsController < ApplicationController
       :question_type,
       :position,
       :required,
-      :settings,
+      settings: {},
       question_options_attributes: [ :id, :text, :position, :_destroy ]
     )
   end

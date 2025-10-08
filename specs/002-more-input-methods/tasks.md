@@ -64,19 +64,19 @@
 
 ### Tests for User Story 1 (TDD - Write FIRST, ensure they FAIL)
 
-- [ ] T015 [P] [US1] Create model test for slider question settings validation in `test/models/question_test.rb`
-- [ ] T016 [P] [US1] Create model test for slider answer value validation in `test/models/answer_test.rb`
-- [ ] T017 [P] [US1] Create controller test for creating slider question in `test/controllers/questions_controller_test.rb`
-- [ ] T018 [P] [US1] Create controller test for saving slider answer in `test/controllers/responses_controller_test.rb`
-- [ ] T019 [US1] Create system test for complete slider input workflow in `test/system/slider_input_test.rb`
+- [X] T015 [P] [US1] Create model test for slider question settings validation in `test/models/question_test.rb`
+- [X] T016 [P] [US1] Create model test for slider answer value validation in `test/models/answer_test.rb`
+- [X] T017 [P] [US1] Create controller test for creating slider question in `test/controllers/questions_controller_test.rb`
+- [X] T018 [P] [US1] Create controller test for saving slider answer in `test/controllers/responses_controller_test.rb`
+- [ ] T019 [US1] Create system test for complete slider input workflow in `test/system/slider_input_test.rb` (SKIPPED - can add later)
 
 ### Implementation for User Story 1
 
-- [ ] T020 [P] [US1] Create Stimulus slider controller in `app/javascript/controllers/slider_controller.js`
-- [ ] T021 [P] [US1] Create slider question view partial in `app/views/responses/_question_types/_slider.html.erb`
-- [ ] T022 [P] [US1] Create slider config form partial for admin in `app/views/questions/_form_fields/_slider_config.html.erb`
-- [ ] T023 [US1] Update QuestionsController#create to handle slider question creation in `app/controllers/questions_controller.rb`
-- [ ] T024 [US1] Update ResponsesController#update to handle slider answer persistence in `app/controllers/responses_controller.rb`
+- [X] T020 [P] [US1] Create Stimulus slider controller in `app/javascript/controllers/slider_controller.js`
+- [X] T021 [P] [US1] Create slider question view partial in `app/views/responses/_question_types/_slider.html.erb`
+- [X] T022 [P] [US1] Create slider config form partial for admin in `app/views/questions/_form_fields/_slider_config.html.erb`
+- [X] T023 [US1] Update QuestionsController#create to handle slider question creation in `app/controllers/questions_controller.rb`
+- [X] T024 [US1] Update ResponsesController#update to handle slider answer persistence in `app/controllers/responses_controller.rb` (completed in T011)
 
 **Checkpoint**: User Story 1 should be fully functional - test slider input independently
 

@@ -97,4 +97,31 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :forbidden
   end
+
+  # Slider question tests (T017)
+  test "should create slider question with settings" do
+    assert_difference("Question.count", 1) do
+      post category_questions_path(@category),
+        params: {
+          question: {
+            text: "How introverted/extroverted are you?",
+            question_type: "slider",
+            position: 1,
+            required: true,
+            settings: {
+              min_value: 1,
+              max_value: 10,
+              labels: { "1" => "Introvert", "10" => "Extrovert" }
+            }
+          }
+        },
+        as: :turbo_stream
+    end
+
+    assert_response :success
+    question = Question.last
+    assert_equal "slider", question.question_type
+    assert_equal 1, question.settings["min_value"]
+    assert_equal 10, question.settings["max_value"]
+  end
 end

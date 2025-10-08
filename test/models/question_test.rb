@@ -42,4 +42,64 @@ class QuestionTest < ActiveSupport::TestCase
     assert_not question.valid?
     assert_includes question.errors[:base], "Choice questions must have at least 2 options"
   end
+
+  # Slider question tests (T015)
+  test "slider question should be valid with proper settings" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "slider",
+      text: "How introverted/extroverted are you?",
+      position: 1,
+      settings: {
+        min_value: 1,
+        max_value: 10,
+        labels: { "1" => "Introvert", "10" => "Extrovert" }
+      }
+    )
+    assert question.valid?
+  end
+
+  test "slider question requires min_value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "slider",
+      text: "Rate this",
+      position: 1,
+      settings: { max_value: 10 }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "must include min_value"
+  end
+
+  test "slider question requires max_value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "slider",
+      text: "Rate this",
+      position: 1,
+      settings: { min_value: 1 }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "must include max_value"
+  end
+
+  test "slider question min_value must be less than max_value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "slider",
+      text: "Rate this",
+      position: 1,
+      settings: { min_value: 10, max_value: 5 }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "min_value must be less than max_value"
+  end
 end

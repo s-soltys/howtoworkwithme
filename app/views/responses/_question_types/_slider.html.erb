@@ -1,0 +1,40 @@
+<div data-controller="slider"
+     data-slider-min-value="<%= question.settings['min_value'] %>"
+     data-slider-max-value="<%= question.settings['max_value'] %>"
+     data-slider-labels-value='<%= question.settings["labels"].to_json %>'
+     class="mb-6">
+
+  <label class="form-control">
+    <div class="label">
+      <span class="label-text text-lg font-semibold"><%= question.text %></span>
+      <% if question.required? %>
+        <span class="label-text-alt text-error">*Required</span>
+      <% end %>
+    </div>
+
+    <input type="range"
+           name="response[answers_attributes][<%= question.id %>][numeric_value]"
+           id="response_answers_attributes_<%= question.id %>_numeric_value"
+           min="<%= question.settings['min_value'] %>"
+           max="<%= question.settings['max_value'] %>"
+           step="<%= question.settings['step'] || 1 %>"
+           value="<%= answer&.numeric_value || question.settings['default_value'] || question.settings['min_value'] %>"
+           class="range range-primary"
+           data-slider-target="input"
+           data-action="input->slider#updateDisplay change->autosave#save">
+
+    <div class="flex justify-between text-xs px-2 mt-2">
+      <span><%= question.settings.dig('labels', question.settings['min_value'].to_s) || question.settings['min_value'] %></span>
+      <span data-slider-target="valueDisplay" class="font-bold text-primary text-base">
+        <%= answer&.numeric_value || question.settings['default_value'] || question.settings['min_value'] %>
+      </span>
+      <span><%= question.settings.dig('labels', question.settings['max_value'].to_s) || question.settings['max_value'] %></span>
+    </div>
+
+    <div class="text-center mt-2">
+      <span data-slider-target="label" class="badge badge-lg"><%= question.settings.dig('labels', (answer&.numeric_value || question.settings['default_value'] || question.settings['min_value']).to_s) %></span>
+    </div>
+
+    <%= hidden_field_tag "response[answers_attributes][#{question.id}][question_id]", question.id %>
+  </label>
+</div>

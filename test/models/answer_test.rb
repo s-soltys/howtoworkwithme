@@ -49,4 +49,59 @@ class AnswerTest < ActiveSupport::TestCase
     answer = response.answers.build(question: question)
     assert_not answer.valid?
   end
+
+  # Slider answer tests (T016)
+  test "slider question should require numeric_value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "slider",
+      text: "Rate this",
+      position: 1,
+      settings: { min_value: 1, max_value: 10 }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(question: question)
+    assert_not answer.valid?
+    assert_includes answer.errors[:numeric_value], "must be present for required slider questions"
+  end
+
+  test "slider answer value must be within min/max range" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "slider",
+      text: "Rate this",
+      position: 1,
+      settings: { min_value: 1, max_value: 10 }
+    )
+    response = quest.responses.create!
+
+    # Test value below minimum
+    answer = response.answers.build(question: question, numeric_value: 0)
+    assert_not answer.valid?
+    assert_includes answer.errors[:numeric_value], "must be at least 1"
+
+    # Test value above maximum
+    answer = response.answers.build(question: question, numeric_value: 15)
+    assert_not answer.valid?
+    assert_includes answer.errors[:numeric_value], "must be at most 10"
+  end
+
+  test "slider answer should be valid with value in range" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "slider",
+      text: "Rate this",
+      position: 1,
+      settings: { min_value: 1, max_value: 10 }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(question: question, numeric_value: 7)
+    assert answer.valid?
+  end
 end

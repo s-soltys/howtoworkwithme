@@ -1,0 +1,57 @@
+<div class="space-y-4">
+  <div class="form-control">
+    <%= label_tag 'question_settings_min_value', "Minimum Value", class: "label" %>
+    <%= number_field_tag 'question[settings][min_value]',
+                         @question.settings["min_value"] || 1,
+                         class: "input input-bordered",
+                         required: true %>
+    <div class="label">
+      <span class="label-text-alt">The lowest value on the slider</span>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <%= label_tag 'question_settings_max_value', "Maximum Value", class: "label" %>
+    <%= number_field_tag 'question[settings][max_value]',
+                         @question.settings["max_value"] || 10,
+                         class: "input input-bordered",
+                         required: true %>
+    <div class="label">
+      <span class="label-text-alt">The highest value on the slider</span>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <%= label_tag 'question_settings_step', "Step (optional)", class: "label" %>
+    <%= number_field_tag 'question[settings][step]',
+                         @question.settings["step"] || 1,
+                         class: "input input-bordered",
+                         min: 1 %>
+    <div class="label">
+      <span class="label-text-alt">Step increment (default: 1)</span>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <%= label_tag 'question_settings_default_value', "Default Value (optional)", class: "label" %>
+    <%= number_field_tag 'question[settings][default_value]',
+                         @question.settings["default_value"],
+                         class: "input input-bordered",
+                         placeholder: "Middle value" %>
+    <div class="label">
+      <span class="label-text-alt">Initial slider position</span>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <%= label_tag 'question_settings_labels', "Labels (JSON, optional)", class: "label" %>
+    <%= text_area_tag 'question[settings][labels]',
+                      @question.settings["labels"]&.to_json || '{"1": "Low", "10": "High"}',
+                      class: "textarea textarea-bordered",
+                      rows: 3,
+                      placeholder: '{"1": "Very Low", "5": "Neutral", "10": "Very High"}' %>
+    <div class="label">
+      <span class="label-text-alt">JSON object mapping values to labels: {"value": "label"}</span>
+    </div>
+  </div>
+</div>
