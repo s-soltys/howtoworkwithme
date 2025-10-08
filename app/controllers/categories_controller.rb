@@ -12,8 +12,8 @@ class CategoriesController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(
             "categories_list",
-            partial: "categories/category",
-            locals: { category: @category }
+            partial: "categories/category_with_questions",
+            locals: { category: @category, locked: @questionnaire.locked? }
           )
         end
         format.html { redirect_to edit_questionnaire_path(@questionnaire.unique_token), notice: "Category created successfully" }

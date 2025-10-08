@@ -33,14 +33,12 @@
 
           <h3 class="text-xl font-semibold mb-4">Categories & Questions</h3>
 
-          <% unless @questionnaire.locked? %>
-            <div class="mb-4">
-              <%= form_with url: questionnaire_categories_path(@questionnaire.unique_token), method: :post, class: "flex gap-2" do |f| %>
-                <%= f.text_field :name, placeholder: "Category name", class: "input input-bordered flex-1" %>
-                <%= f.submit "Add Category", class: "btn btn-primary" %>
-              <% end %>
-            </div>
-          <% end %>
+          <div class="mb-4">
+            <%= form_with url: questionnaire_categories_path(@questionnaire.unique_token), method: :post, class: "flex gap-2" do |f| %>
+              <%= f.text_field :name, placeholder: "Category name", class: "input input-bordered flex-1", disabled: @questionnaire.locked? %>
+              <%= f.submit "Add Category", class: "btn btn-primary", disabled: @questionnaire.locked? %>
+            <% end %>
+          </div>
 
           <div id="categories_list" class="space-y-4">
             <% @categories.each do |category| %>

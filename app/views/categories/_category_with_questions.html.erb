@@ -9,29 +9,27 @@
       <% end %>
     </div>
 
-    <% unless locked %>
-      <div class="mb-4">
-        <%= form_with url: category_questions_path(category), method: :post, class: "space-y-2" do |f| %>
-          <%= f.text_area :text, placeholder: "Question text", class: "textarea textarea-bordered w-full", rows: 2 %>
-          <div class="flex gap-2">
-            <%= f.select :question_type,
-                options_for_select([
-                  ["Free Text", "text"],
-                  ["Single Choice", "single_choice"],
-                  ["Multiple Choice", "multiple_choice"],
-                  ["Yes/No", "yes_no"]
-                ]),
-                {},
-                class: "select select-bordered flex-1" %>
-            <label class="label cursor-pointer gap-2">
-              <%= f.check_box :required, class: "checkbox" %>
-              <span class="label-text">Required</span>
-            </label>
-            <%= f.submit "Add Question", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="mb-4">
+      <%= form_with url: category_questions_path(category), method: :post, class: "space-y-2" do |f| %>
+        <%= f.text_area :text, placeholder: "Question text", class: "textarea textarea-bordered w-full", rows: 2, disabled: locked %>
+        <div class="flex gap-2">
+          <%= f.select :question_type,
+              options_for_select([
+                ["Free Text", "text"],
+                ["Single Choice", "single_choice"],
+                ["Multiple Choice", "multiple_choice"],
+                ["Yes/No", "yes_no"]
+              ]),
+              {},
+              { class: "select select-bordered flex-1", disabled: locked } %>
+          <label class="label cursor-pointer gap-2">
+            <%= f.check_box :required, class: "checkbox", disabled: locked %>
+            <span class="label-text">Required</span>
+          </label>
+          <%= f.submit "Add Question", class: "btn btn-primary", disabled: locked %>
+        </div>
+      <% end %>
+    </div>
 
     <div id="category_<%= category.id %>_questions" class="space-y-2">
       <% category.questions.each do |question| %>
