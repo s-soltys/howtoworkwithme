@@ -1,1 +1,2 @@
-//= require active_admin/base
+/* ActiveAdmin Custom JavaScript */
+/* Add your custom JavaScript here to enhance ActiveAdmin */
