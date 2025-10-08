@@ -17,7 +17,12 @@
       "Bash(RAILS_ENV=test rails db:reset)",
       "WebFetch(domain:bundlephobia.com)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:npmtrends.com)"
+      "WebFetch(domain:npmtrends.com)",
+      "Bash(if [ -d \"/Users/szymon/howtoworkwithme/specs/002-more-input-methods/checklists\" ])",
+      "Bash(then echo \"EXISTS\")",
+      "Bash(else echo \"NONE\")",
+      "Bash(bin/importmap:*)",
+      "Bash(bin/importmap pin:*)"
     ],
     "deny": [],
     "ask": []
