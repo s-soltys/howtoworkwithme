@@ -13,3 +13,19 @@ two:
   unique_token: "test-questionnaire-token-456"
   active: true
   locked_at: null
+
+unlocked_questionnaire:
+  organization: one
+  title: "Unlocked Questionnaire"
+  description: "This questionnaire is unlocked"
+  unique_token: "test-unlocked-questionnaire-token"
+  active: true
+  locked_at: null
+
+locked_questionnaire:
+  organization: one
+  title: "Locked Questionnaire"
+  description: "This questionnaire is locked"
+  unique_token: "test-locked-questionnaire-token"
+  active: true
+  locked_at: <%= 1.day.ago %>

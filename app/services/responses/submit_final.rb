@@ -20,6 +20,12 @@ module Responses
         # Update response status to submitted
         @response.update!(status: "submitted", submitted_at: Time.current)
 
+        # Lock questionnaire if this is the first submission
+        lock_result = Questionnaires::LockConfiguration.call(@questionnaire)
+        unless lock_result.success?
+          raise ActiveRecord::RecordInvalid.new(@questionnaire)
+        end
+
         # Generate profile with unique token
         profile = @response.create_profile!
 

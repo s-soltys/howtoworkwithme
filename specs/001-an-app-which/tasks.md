@@ -287,16 +287,16 @@
 
 ### Service Objects for User Story 2
 
-- [ ] T139 [US2] Create service directory: `mkdir -p app/services/questionnaires`
-- [ ] T140 [US2] Write failing test for `Questionnaires::LockConfiguration` service in `test/services/questionnaires/lock_configuration_test.rb`
-- [ ] T141 [US2] Implement `Questionnaires::LockConfiguration` service in `app/services/questionnaires/lock_configuration.rb`:
+- [X] T139 [US2] Create service directory: `mkdir -p app/services/questionnaires`
+- [X] T140 [US2] Write failing test for `Questionnaires::LockConfiguration` service in `test/services/questionnaires/lock_configuration_test.rb`
+- [X] T141 [US2] Implement `Questionnaires::LockConfiguration` service in `app/services/questionnaires/lock_configuration.rb`:
   - Check if questionnaire has any submitted responses
   - If yes, set locked_at timestamp
   - Called automatically during Responses::SubmitFinal
   - Return success/failure result
-- [ ] T142 [US2] Run service test, verify it passes
-- [ ] T143 [US2] Integrate LockConfiguration service into Responses::SubmitFinal (update T073)
-- [ ] T144 [US2] Test questionnaire locking: submit first response, verify questionnaire locked, attempt to edit category, verify 403 error
+- [X] T142 [US2] Run service test, verify it passes
+- [X] T143 [US2] Integrate LockConfiguration service into Responses::SubmitFinal (update T073)
+- [X] T144 [US2] Test questionnaire locking: submit first response, verify questionnaire locked, attempt to edit category, verify 403 error
 
 ### Views for User Story 2
 
@@ -342,12 +342,12 @@
 
 ### JavaScript (Stimulus Controllers) for User Story 2
 
-- [ ] T152 [US2] Generate Stimulus question_type controller: `rails g stimulus question_type`
-- [ ] T153 [US2] Implement question_type controller in `app/javascript/controllers/question_type_controller.js`:
+- [X] T152 [US2] Generate Stimulus question_type controller: `rails g stimulus question_type`
+- [X] T153 [US2] Implement question_type controller in `app/javascript/controllers/question_type_controller.js`:
   - Show/hide options fields based on question type selection
   - Add/remove option fields dynamically
   - Validate minimum 2 options for choice types
-- [ ] T154 [US2] Test question_type controller manually: select multiple_choice, verify options fields appear
+- [X] T154 [US2] Test question_type controller manually: select multiple_choice, verify options fields appear
 
 ### Integration for User Story 2
 
