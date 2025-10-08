@@ -14,7 +14,10 @@
       "Bash(fi)",
       "Bash(mkdir:*)",
       "Bash(bundle exec:*)",
-      "Bash(RAILS_ENV=test rails db:reset)"
+      "Bash(RAILS_ENV=test rails db:reset)",
+      "WebFetch(domain:bundlephobia.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:npmtrends.com)"
     ],
     "deny": [],
     "ask": []
