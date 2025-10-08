@@ -16,7 +16,7 @@ class ResponsesController < ApplicationController
 
         answer = @response.answers.find_or_initialize_by(question_id: answer_params[:question_id])
         # Permit only the allowed attributes
-        permitted_params = answer_params.permit(:text_value, :selected_option_id, :boolean_value, selected_option_ids: [])
+        permitted_params = answer_params.permit(:text_value, :selected_option_id, :boolean_value, :numeric_value, selected_option_ids: [], jsonb_value: {})
         answer.assign_attributes(permitted_params)
         answer.save if answer.changed?
       end
@@ -69,7 +69,7 @@ class ResponsesController < ApplicationController
 
   def response_params
     params.require(:response).permit(
-      answers_attributes: [ :id, :question_id, :text_value, :selected_option_id, :boolean_value, selected_option_ids: [] ]
+      answers_attributes: [ :id, :question_id, :text_value, :selected_option_id, :boolean_value, :numeric_value, selected_option_ids: [], jsonb_value: {} ]
     )
   end
 end

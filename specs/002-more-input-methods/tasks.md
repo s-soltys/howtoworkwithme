@@ -35,22 +35,22 @@
 
 ### Database Migrations
 
-- [ ] T005 Create migration to add new question types: `rails g migration AddNewQuestionInputTypes` in `db/migrate/`
-- [ ] T006 Create migration to add value fields to answers: `rails g migration AddValueFieldsToAnswers numeric_value:integer jsonb_value:jsonb` in `db/migrate/`
-- [ ] T007 Run migrations: `rails db:migrate`
+- [X] T005 Create migration to add new question types: `rails g migration AddNewQuestionInputTypes` in `db/migrate/`
+- [X] T006 Create migration to add value fields to answers: `rails g migration AddValueFieldsToAnswers numeric_value:integer jsonb_value:jsonb` in `db/migrate/`
+- [X] T007 Run migrations: `rails db:migrate`
 
 ### Model Extensions
 
-- [ ] T008 Extend Question model enum with 6 new question types in `app/models/question.rb`
-- [ ] T009 Add settings validation methods for all 6 question types in `app/models/question.rb`
-- [ ] T010 Extend Answer model with validation methods for all 6 question types in `app/models/answer.rb`
-- [ ] T011 Update strong parameters in `app/controllers/responses_controller.rb` to permit `numeric_value` and `jsonb_value` fields
+- [X] T008 Extend Question model enum with 6 new question types in `app/models/question.rb`
+- [X] T009 Add settings validation methods for all 6 question types in `app/models/question.rb`
+- [X] T010 Extend Answer model with validation methods for all 6 question types in `app/models/answer.rb`
+- [X] T011 Update strong parameters in `app/controllers/responses_controller.rb` to permit `numeric_value` and `jsonb_value` fields
 
 ### Service Objects
 
-- [ ] T012 [P] Create Questions::ValidateConfiguration service in `app/services/questions/validate_configuration.rb`
-- [ ] T013 [P] Create Responses::SaveAnswer service in `app/services/responses/save_answer.rb`
-- [ ] T014 [P] Create Responses::ValidateCharacterSheet service in `app/services/responses/validate_character_sheet.rb`
+- [X] T012 [P] Create Questions::ValidateConfiguration service in `app/services/questions/validate_configuration.rb`
+- [X] T013 [P] Create Responses::SaveAnswer service in `app/services/responses/save_answer.rb`
+- [X] T014 [P] Create Responses::ValidateCharacterSheet service in `app/services/responses/validate_character_sheet.rb`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 

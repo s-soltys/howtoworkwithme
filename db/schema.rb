@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_08_161625) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_08_211430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_08_161625) do
     t.boolean "boolean_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "numeric_value"
+    t.jsonb "jsonb_value", default: {}
+    t.index ["jsonb_value"], name: "index_answers_on_jsonb_value", using: :gin
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["response_id", "question_id"], name: "index_answers_on_response_id_and_question_id", unique: true
     t.index ["response_id"], name: "index_answers_on_response_id"
