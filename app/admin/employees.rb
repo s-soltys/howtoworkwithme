@@ -1,4 +1,6 @@
 ActiveAdmin.register Employee do
+  menu parent: "Organization Management", priority: 2
+
   permit_params :name, :email, :organization_id
 
   index do

@@ -1,4 +1,6 @@
 ActiveAdmin.register Category do
+  menu parent: "Questionnaire Setup", priority: 2
+
   permit_params :name, :position, :questionnaire_id
 
   index do

@@ -1,4 +1,6 @@
 ActiveAdmin.register Organization do
+  menu parent: "Organization Management", priority: 1
+
   permit_params :name
 
   index do

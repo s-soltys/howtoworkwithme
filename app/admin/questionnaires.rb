@@ -1,4 +1,6 @@
 ActiveAdmin.register Questionnaire do
+  menu parent: "Questionnaire Setup", priority: 1
+
   permit_params :title, :description, :active, :locked_at, :organization_id
 
   index do
