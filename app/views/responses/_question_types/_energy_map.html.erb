@@ -1,0 +1,51 @@
+<%
+  # Extract settings from question
+  time_periods = question.settings["time_periods"] || []
+  scale_min = question.settings["scale_min"] || 0
+  scale_max = question.settings["scale_max"] || 10
+  y_axis_label = question.settings["y_axis_label"] || "Energy Level"
+
+  # Extract existing answer data
+  existing_data = if answer.jsonb_value.present? && answer.jsonb_value["data_points"].present?
+    answer.jsonb_value["data_points"].map { |dp| dp["value"] }
+  else
+    time_periods.map { nil }
+  end
+%>
+
+<div class="form-control w-full"
+     data-controller="energy-map"
+     data-energy-map-labels-value="<%= time_periods.to_json %>"
+     data-energy-map-data-value="<%= existing_data.to_json %>"
+     data-energy-map-scale-min-value="<%= scale_min %>"
+     data-energy-map-scale-max-value="<%= scale_max %>"
+     data-energy-map-y-axis-label-value="<%= y_axis_label %>"
+     data-action="energy-map:point-updated->autosave#save">
+
+  <div class="label">
+    <span class="label-text font-semibold"><%= question.text %></span>
+    <% if question.required? %>
+      <span class="label-text-alt text-error">*Required</span>
+    <% end %>
+  </div>
+
+  <div class="alert alert-info mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span>Drag the points up or down to set your energy level for each time period. Click on the chart to add a point.</span>
+  </div>
+
+  <div class="bg-base-200 rounded-lg p-4" style="height: 400px;">
+    <canvas data-energy-map-target="canvas"></canvas>
+  </div>
+
+  <%# Hidden input to store the jsonb_value for form submission %>
+  <%= hidden_field_tag "answer[jsonb_value]",
+                       answer.jsonb_value.present? ? answer.jsonb_value.to_json : { data_points: time_periods.map { |p| { period: p, value: nil } } }.to_json,
+                       data: { energy_map_target: "hiddenInput" } %>
+
+  <div class="label">
+    <span class="label-text-alt">Tip: Set at least one data point to save your answer</span>
+  </div>
+</div>

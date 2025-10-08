@@ -1,0 +1,74 @@
+<%
+  # Extract settings from question
+  emoji_options = question.settings["emoji_options"] || []
+
+  # Extract existing answer data
+  existing_emoji = answer.jsonb_value.present? ? answer.jsonb_value["emoji"] : nil
+%>
+
+<div class="form-control w-full"
+     data-controller="emoji-reaction"
+     data-action="emoji-reaction:selected->autosave#save">
+
+  <div class="label">
+    <span class="label-text font-semibold"><%= question.text %></span>
+    <% if question.required? %>
+      <span class="label-text-alt text-error">*Required</span>
+    <% end %>
+  </div>
+
+  <div class="alert alert-info mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span>Select an emoji that best represents your response</span>
+  </div>
+
+  <div class="flex flex-wrap gap-4 justify-center p-4">
+    <% emoji_options.each do |option| %>
+      <button type="button"
+              class="btn btn-circle btn-lg <%= existing_emoji == option['emoji'] ? 'btn-primary scale-125 ring-4 ring-primary ring-offset-2' : 'btn-ghost' %> transition-all duration-300"
+              data-emoji-reaction-target="option"
+              data-emoji="<%= option['emoji'] %>"
+              data-label="<%= option['label'] %>"
+              data-value="<%= option['value'] %>"
+              data-action="click->emoji-reaction#select"
+              title="<%= option['label'] %>">
+        <span class="text-4xl"><%= option['emoji'] %></span>
+      </button>
+    <% end %>
+  </div>
+
+  <%# Show selected emoji label %>
+  <% if existing_emoji.present? %>
+    <div class="text-center mt-2">
+      <% selected_option = emoji_options.find { |opt| opt['emoji'] == existing_emoji } %>
+      <% if selected_option %>
+        <div class="badge badge-primary badge-lg">
+          <span class="text-xl mr-2"><%= selected_option['emoji'] %></span>
+          <%= selected_option['label'] %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%# Hidden input to store the jsonb_value for form submission %>
+  <%= hidden_field_tag "answer[jsonb_value]",
+                       answer.jsonb_value.present? ? answer.jsonb_value.to_json : "{}",
+                       data: { emoji_reaction_target: "hiddenInput" } %>
+
+  <div class="label">
+    <span class="label-text-alt">Tap an emoji to react</span>
+  </div>
+</div>
+
+<style>
+  @keyframes bounce {
+    0%, 100% {
+      transform: scale(1.25) translateY(0);
+    }
+    50% {
+      transform: scale(1.35) translateY(-10px);
+    }
+  }
+</style>

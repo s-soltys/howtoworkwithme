@@ -1,0 +1,114 @@
+<%
+  # Extract settings from question
+  total_points = question.settings["total_points"] || 20
+  stats = question.settings["stats"] || []
+  require_full_allocation = question.settings.fetch("require_full_allocation", true)
+
+  # Extract existing answer data
+  existing_allocations = if answer.jsonb_value.present? && answer.jsonb_value["allocations"].present?
+    answer.jsonb_value["allocations"]
+  else
+    {}
+  end
+
+  # Calculate currently allocated points
+  allocated_points = existing_allocations.values.sum
+  remaining_points = total_points - allocated_points
+%>
+
+<div class="form-control w-full"
+     data-controller="character-sheet"
+     data-character-sheet-total-points-value="<%= total_points %>"
+     data-character-sheet-min-per-stat-value="0"
+     data-character-sheet-max-per-stat-value="10"
+     data-action="character-sheet:allocated->autosave#save">
+
+  <div class="label">
+    <span class="label-text font-semibold"><%= question.text %></span>
+    <% if question.required? %>
+      <span class="label-text-alt text-error">*Required</span>
+    <% end %>
+  </div>
+
+  <div class="alert alert-info mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <div>
+      <p class="font-semibold">Allocate <strong><span data-character-sheet-target="remaining" class="<%= remaining_points == 0 ? 'text-success' : 'text-warning' %>"><%= remaining_points %></span></strong> points remaining</p>
+      <p class="text-sm">Total budget: <%= total_points %> points</p>
+    </div>
+  </div>
+
+  <div class="alert alert-error hidden mb-4" data-character-sheet-target="error"></div>
+
+  <div class="space-y-4">
+    <% stats.each do |stat| %>
+      <%
+        stat_id = stat["id"]
+        stat_label = stat["label"]
+        stat_description = stat["description"]
+        stat_min = stat["min"] || 0
+        stat_max = stat["max"] || 10
+        current_value = existing_allocations[stat_id] || 0
+      %>
+
+      <div data-stat-id="<%= stat_id %>"
+           data-stat-min="<%= stat_min %>"
+           data-stat-max="<%= stat_max %>"
+           class="card bg-base-200">
+        <div class="card-body">
+          <h3 class="card-title text-lg"><%= stat_label %></h3>
+          <% if stat_description.present? %>
+            <p class="text-sm opacity-70"><%= stat_description %></p>
+          <% end %>
+
+          <div class="flex items-center gap-4 mt-2">
+            <button type="button"
+                    class="btn btn-circle btn-sm"
+                    data-action="click->character-sheet#decrement">
+              <span class="text-xl">−</span>
+            </button>
+
+            <input type="number"
+                   value="<%= current_value %>"
+                   readonly
+                   class="input input-bordered w-20 text-center font-bold text-xl"
+                   data-character-sheet-target="stat"
+                   min="<%= stat_min %>"
+                   max="<%= stat_max %>">
+
+            <button type="button"
+                    class="btn btn-circle btn-sm"
+                    data-action="click->character-sheet#increment">
+              <span class="text-xl">+</span>
+            </button>
+
+            <%# Progress bar visualization %>
+            <progress class="progress progress-primary w-full"
+                      value="<%= current_value %>"
+                      max="<%= stat_max %>"></progress>
+
+            <%# Radial progress visualization (alternative) %>
+            <div class="radial-progress text-primary font-bold"
+                 style="--value:<%= (current_value.to_f / stat_max * 100).round %>; --size:4rem; --thickness:4px"
+                 role="progressbar">
+              <%= current_value %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%# Hidden input to store the jsonb_value for form submission %>
+  <%= hidden_field_tag "answer[jsonb_value]",
+                       answer.jsonb_value.present? ? answer.jsonb_value.to_json : { allocations: {}, total_allocated: 0 }.to_json,
+                       data: { character_sheet_target: "hiddenInput" } %>
+
+  <% if require_full_allocation %>
+    <div class="label">
+      <span class="label-text-alt text-warning">You must allocate all <%= total_points %> points to continue</span>
+    </div>
+  <% end %>
+</div>

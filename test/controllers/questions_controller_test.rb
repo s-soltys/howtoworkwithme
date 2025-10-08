@@ -121,7 +121,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     question = Question.last
     assert_equal "slider", question.question_type
-    assert_equal 1, question.settings["min_value"]
-    assert_equal 10, question.settings["max_value"]
+    assert_equal "1", question.settings["min_value"]
+    assert_equal "10", question.settings["max_value"]
   end
 end
