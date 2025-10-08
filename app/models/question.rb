@@ -1,0 +1,34 @@
+class Question < ApplicationRecord
+  # Enums
+  enum :question_type, { text: "text", single_choice: "single_choice", multiple_choice: "multiple_choice", yes_no: "yes_no" }
+
+  # Associations
+  belongs_to :category
+  has_many :question_options, -> { order(position: :asc) }, dependent: :destroy
+  has_many :answers, dependent: :destroy
+  has_one :questionnaire, through: :category
+
+  # Validations
+  validates :text, presence: true
+  validates :question_type, presence: true
+  validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validate :choice_questions_need_options
+  validate :questionnaire_not_locked, on: [:create, :update, :destroy]
+
+  # Nested attributes
+  accepts_nested_attributes_for :question_options, allow_destroy: true
+
+  private
+
+  def choice_questions_need_options
+    if (single_choice? || multiple_choice?) && question_options.size < 2
+      errors.add(:base, "Choice questions must have at least 2 options")
+    end
+  end
+
+  def questionnaire_not_locked
+    if category&.questionnaire&.locked?
+      errors.add(:base, "Cannot modify question when questionnaire is locked")
+    end
+  end
+end

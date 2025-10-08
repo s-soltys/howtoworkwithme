@@ -6,7 +6,9 @@
       "Bash(rails --version)",
       "WebSearch",
       "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
-      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)"
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(bundle install:*)",
+      "Bash(rails:*)"
     ],
     "deny": [],
     "ask": []

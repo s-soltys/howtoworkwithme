@@ -19,11 +19,11 @@
 
 **Purpose**: Project initialization and PostgreSQL configuration
 
-- [ ] T001 [Setup] Add PostgreSQL gem to Gemfile: `gem 'pg', '~> 1.1'` for production
-- [ ] T002 [Setup] Update `config/database.yml` to use PostgreSQL for development and test per research.md
-- [ ] T003 [Setup] Run `bundle install` to install PostgreSQL adapter
-- [ ] T004 [Setup] Create databases with `rails db:create`
-- [ ] T005 [P] [Setup] Create `.env` file with DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST per quickstart.md
+- [X] T001 [Setup] Add PostgreSQL gem to Gemfile: `gem 'pg', '~> 1.1'` for production
+- [X] T002 [Setup] Update `config/database.yml` to use PostgreSQL for development and test per research.md
+- [X] T003 [Setup] Run `bundle install` to install PostgreSQL adapter
+- [X] T004 [Setup] Create databases with `rails db:create`
+- [X] T005 [P] [Setup] Create `.env` file with DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST per quickstart.md
 
 **Checkpoint**: Database configured and ready for migrations
 
@@ -37,57 +37,57 @@
 
 ### Database Schema Setup
 
-- [ ] T006 [Foundation] Generate Organization model: `rails g model Organization name:string unique_token:string:uniq`
-- [ ] T007 [Foundation] Edit organization migration to add NOT NULL constraints, `has_secure_token` setup
-- [ ] T008 [Foundation] Generate Questionnaire model: `rails g model Questionnaire organization:references title:string description:text unique_token:string:uniq locked_at:datetime active:boolean`
-- [ ] T009 [Foundation] Edit questionnaire migration to add NOT NULL constraints, defaults, indexes
-- [ ] T010 [Foundation] Generate Category model: `rails g model Category questionnaire:references name:string position:integer`
-- [ ] T011 [Foundation] Edit category migration to add NOT NULL constraints, composite unique index on (questionnaire_id, name)
-- [ ] T012 [Foundation] Generate Question model: `rails g model Question category:references question_type:string text:text position:integer required:boolean settings:jsonb`
-- [ ] T013 [Foundation] Edit question migration to add NOT NULL constraints, defaults, composite index on (category_id, position)
-- [ ] T014 [Foundation] Generate QuestionOption model: `rails g model QuestionOption question:references text:string position:integer`
-- [ ] T015 [Foundation] Edit question_option migration to add NOT NULL constraints, composite index on (question_id, position)
-- [ ] T016 [Foundation] Generate Employee model: `rails g model Employee organization:references name:string email:string`
-- [ ] T017 [Foundation] Edit employee migration to add NOT NULL constraint on name
-- [ ] T018 [Foundation] Generate Response model: `rails g model Response questionnaire:references employee:references unique_token:string:uniq status:string submitted_at:datetime`
-- [ ] T019 [Foundation] Edit response migration to add composite indexes: (employee_id, questionnaire_id, submitted_at), (questionnaire_id, submitted_at), (questionnaire_id, status)
-- [ ] T020 [Foundation] Generate Answer model: `rails g model Answer response:references question:references text_value:text selected_option_id:integer boolean_value:boolean`
-- [ ] T021 [Foundation] Add `selected_option_ids` integer array column to answers table in new migration with GIN index
-- [ ] T022 [Foundation] Edit answer migration to add composite unique index on (response_id, question_id)
-- [ ] T023 [Foundation] Generate Profile model: `rails g model Profile response:references unique_token:string:uniq viewed_count:integer`
-- [ ] T024 [Foundation] Edit profile migration to add default value for viewed_count, unique constraint on response_id
-- [ ] T025 [Foundation] Run `rails db:migrate` to execute all migrations
-- [ ] T026 [Foundation] Verify schema with `rails db:migrate:status`
+- [X] T006 [Foundation] Generate Organization model: `rails g model Organization name:string unique_token:string:uniq`
+- [X] T007 [Foundation] Edit organization migration to add NOT NULL constraints, `has_secure_token` setup
+- [X] T008 [Foundation] Generate Questionnaire model: `rails g model Questionnaire organization:references title:string description:text unique_token:string:uniq locked_at:datetime active:boolean`
+- [X] T009 [Foundation] Edit questionnaire migration to add NOT NULL constraints, defaults, indexes
+- [X] T010 [Foundation] Generate Category model: `rails g model Category questionnaire:references name:string position:integer`
+- [X] T011 [Foundation] Edit category migration to add NOT NULL constraints, composite unique index on (questionnaire_id, name)
+- [X] T012 [Foundation] Generate Question model: `rails g model Question category:references question_type:string text:text position:integer required:boolean settings:jsonb`
+- [X] T013 [Foundation] Edit question migration to add NOT NULL constraints, defaults, composite index on (category_id, position)
+- [X] T014 [Foundation] Generate QuestionOption model: `rails g model QuestionOption question:references text:string position:integer`
+- [X] T015 [Foundation] Edit question_option migration to add NOT NULL constraints, composite index on (question_id, position)
+- [X] T016 [Foundation] Generate Employee model: `rails g model Employee organization:references name:string email:string`
+- [X] T017 [Foundation] Edit employee migration to add NOT NULL constraint on name
+- [X] T018 [Foundation] Generate Response model: `rails g model Response questionnaire:references employee:references unique_token:string:uniq status:string submitted_at:datetime`
+- [X] T019 [Foundation] Edit response migration to add composite indexes: (employee_id, questionnaire_id, submitted_at), (questionnaire_id, submitted_at), (questionnaire_id, status)
+- [X] T020 [Foundation] Generate Answer model: `rails g model Answer response:references question:references text_value:text selected_option_id:integer boolean_value:boolean`
+- [X] T021 [Foundation] Add `selected_option_ids` integer array column to answers table in new migration with GIN index
+- [X] T022 [Foundation] Edit answer migration to add composite unique index on (response_id, question_id)
+- [X] T023 [Foundation] Generate Profile model: `rails g model Profile response:references unique_token:string:uniq viewed_count:integer`
+- [X] T024 [Foundation] Edit profile migration to add default value for viewed_count, unique constraint on response_id
+- [X] T025 [Foundation] Run `rails db:migrate` to execute all migrations
+- [X] T026 [Foundation] Verify schema with `rails db:migrate:status`
 
 ### Core Model Implementations
 
-- [ ] T027 [P] [Foundation] Write failing test for Organization model in `test/models/organization_test.rb` (validations, has_secure_token)
-- [ ] T028 [Foundation] Implement Organization model in `app/models/organization.rb`: validations, has_secure_token, associations
-- [ ] T029 [Foundation] Run test, verify it passes: `rails test test/models/organization_test.rb`
-- [ ] T030 [P] [Foundation] Write failing test for Questionnaire model in `test/models/questionnaire_test.rb` (validations, has_secure_token, scopes)
-- [ ] T031 [Foundation] Implement Questionnaire model in `app/models/questionnaire.rb`: validations, has_secure_token, associations, scopes (active, locked, unlocked)
-- [ ] T032 [Foundation] Run test, verify it passes: `rails test test/models/questionnaire_test.rb`
-- [ ] T033 [P] [Foundation] Write failing test for Category model in `test/models/category_test.rb` (validations, unique name per questionnaire)
-- [ ] T034 [Foundation] Implement Category model in `app/models/category.rb`: validations, associations, uniqueness validation
-- [ ] T035 [Foundation] Run test, verify it passes: `rails test test/models/category_test.rb`
-- [ ] T036 [P] [Foundation] Write failing test for Question model in `test/models/question_test.rb` (validations, question_type enum, choice questions need options)
-- [ ] T037 [Foundation] Implement Question model in `app/models/question.rb`: validations, associations, enum for question_type, custom validation for options
-- [ ] T038 [Foundation] Run test, verify it passes: `rails test test/models/question_test.rb`
-- [ ] T039 [P] [Foundation] Write failing test for QuestionOption model in `test/models/question_option_test.rb`
-- [ ] T040 [Foundation] Implement QuestionOption model in `app/models/question_option.rb`: validations, associations
-- [ ] T041 [Foundation] Run test, verify it passes: `rails test test/models/question_option_test.rb`
-- [ ] T042 [P] [Foundation] Write failing test for Employee model in `test/models/employee_test.rb`
-- [ ] T043 [Foundation] Implement Employee model in `app/models/employee.rb`: validations, associations
-- [ ] T044 [Foundation] Run test, verify it passes: `rails test test/models/employee_test.rb`
-- [ ] T045 [P] [Foundation] Write failing test for Response model in `test/models/response_test.rb` (status enum, scopes, versioning queries)
-- [ ] T046 [Foundation] Implement Response model in `app/models/response.rb`: validations, has_secure_token, enum for status, scopes (draft, submitted, most_recent_first), submit! method
-- [ ] T047 [Foundation] Run test, verify it passes: `rails test test/models/response_test.rb`
-- [ ] T048 [P] [Foundation] Write failing test for Answer model in `test/models/answer_test.rb` (polymorphic storage, validations per question type)
-- [ ] T049 [Foundation] Implement Answer model in `app/models/answer.rb`: validations, associations, custom validation for answer_matches_question_type, selected_options_exist
-- [ ] T050 [Foundation] Run test, verify it passes: `rails test test/models/answer_test.rb`
-- [ ] T051 [P] [Foundation] Write failing test for Profile model in `test/models/profile_test.rb`
-- [ ] T052 [Foundation] Implement Profile model in `app/models/profile.rb`: validations, has_secure_token, associations, scopes
-- [ ] T053 [Foundation] Run test, verify it passes: `rails test test/models/profile_test.rb`
+- [X] T027 [P] [Foundation] Write failing test for Organization model in `test/models/organization_test.rb` (validations, has_secure_token)
+- [X] T028 [Foundation] Implement Organization model in `app/models/organization.rb`: validations, has_secure_token, associations
+- [X] T029 [Foundation] Run test, verify it passes: `rails test test/models/organization_test.rb`
+- [X] T030 [P] [Foundation] Write failing test for Questionnaire model in `test/models/questionnaire_test.rb` (validations, has_secure_token, scopes)
+- [X] T031 [Foundation] Implement Questionnaire model in `app/models/questionnaire.rb`: validations, has_secure_token, associations, scopes (active, locked, unlocked)
+- [X] T032 [Foundation] Run test, verify it passes: `rails test test/models/questionnaire_test.rb`
+- [X] T033 [P] [Foundation] Write failing test for Category model in `test/models/category_test.rb` (validations, unique name per questionnaire)
+- [X] T034 [Foundation] Implement Category model in `app/models/category.rb`: validations, associations, uniqueness validation
+- [X] T035 [Foundation] Run test, verify it passes: `rails test test/models/category_test.rb`
+- [X] T036 [P] [Foundation] Write failing test for Question model in `test/models/question_test.rb` (validations, question_type enum, choice questions need options)
+- [X] T037 [Foundation] Implement Question model in `app/models/question.rb`: validations, associations, enum for question_type, custom validation for options
+- [X] T038 [Foundation] Run test, verify it passes: `rails test test/models/question_test.rb`
+- [X] T039 [P] [Foundation] Write failing test for QuestionOption model in `test/models/question_option_test.rb`
+- [X] T040 [Foundation] Implement QuestionOption model in `app/models/question_option.rb`: validations, associations
+- [X] T041 [Foundation] Run test, verify it passes: `rails test test/models/question_option_test.rb`
+- [X] T042 [P] [Foundation] Write failing test for Employee model in `test/models/employee_test.rb`
+- [X] T043 [Foundation] Implement Employee model in `app/models/employee.rb`: validations, associations
+- [X] T044 [Foundation] Run test, verify it passes: `rails test test/models/employee_test.rb`
+- [X] T045 [P] [Foundation] Write failing test for Response model in `test/models/response_test.rb` (status enum, scopes, versioning queries)
+- [X] T046 [Foundation] Implement Response model in `app/models/response.rb`: validations, has_secure_token, enum for status, scopes (draft, submitted, most_recent_first), submit! method
+- [X] T047 [Foundation] Run test, verify it passes: `rails test test/models/response_test.rb`
+- [X] T048 [P] [Foundation] Write failing test for Answer model in `test/models/answer_test.rb` (polymorphic storage, validations per question type)
+- [X] T049 [Foundation] Implement Answer model in `app/models/answer.rb`: validations, associations, custom validation for answer_matches_question_type, selected_options_exist
+- [X] T050 [Foundation] Run test, verify it passes: `rails test test/models/answer_test.rb`
+- [X] T051 [P] [Foundation] Write failing test for Profile model in `test/models/profile_test.rb`
+- [X] T052 [Foundation] Implement Profile model in `app/models/profile.rb`: validations, has_secure_token, associations, scopes
+- [X] T053 [Foundation] Run test, verify it passes: `rails test test/models/profile_test.rb`
 
 **Checkpoint**: Foundation ready - all core models tested and working. User story implementation can now begin.
 
