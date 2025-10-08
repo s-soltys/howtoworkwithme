@@ -6,6 +6,12 @@ class QuestionnairesController < ApplicationController
   def show
   end
 
+  # GET /organizations/:organization_unique_token/questionnaires/new
+  def new
+    @organization = Organization.find_by!(unique_token: params[:organization_unique_token])
+    @questionnaire = @organization.questionnaires.new
+  end
+
   # POST /organizations/:organization_unique_token/questionnaires
   def create
     @organization = Organization.find_by!(unique_token: params[:organization_unique_token])

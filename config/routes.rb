@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   root "organizations#new"
 
   resources :organizations, param: :unique_token, only: [:create, :show] do
-    resources :questionnaires, only: [:create], shallow: true
+    resources :questionnaires, only: [:new, :create], shallow: true
   end
 
   # User Story 1: Employee completes questionnaire and generates profile
