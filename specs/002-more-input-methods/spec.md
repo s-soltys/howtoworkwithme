@@ -62,8 +62,8 @@ Users need to rank multiple options by importance to reveal their true prioritie
 
 1. **Given** a set of cards to sort, **When** the user drags a card, **Then** other cards shift to show available drop positions
 2. **Given** cards are being sorted, **When** the user drops a card in a new position, **Then** the ranking updates with visual feedback showing the new order
-3. **Given** cards have been sorted, **When** the user proceeds, **Then** the complete ranking (ordered list) is saved
-4. **Given** multiple cards at different positions, **When** the user reviews their choices, **Then** each card shows its rank number clearly
+3. **Given** cards have been sorted (fully or partially), **When** the user proceeds, **Then** the complete ranking is saved with ranked cards in order and unranked cards marked as "not ranked"
+4. **Given** multiple cards at different positions, **When** the user reviews their choices, **Then** each card shows its rank number clearly (ranked cards) or "not ranked" indicator (unranked cards)
 
 ---
 
@@ -79,7 +79,7 @@ Users want to map their energy, mood, or engagement levels across different phas
 
 1. **Given** an energy mapping interface with time periods, **When** the user clicks/taps a time point, **Then** they can set the energy level for that period
 2. **Given** the user is mapping energy across a timeline, **When** they set multiple points, **Then** a line/curve connects the points showing the pattern
-3. **Given** the user has completed their energy map, **When** they submit, **Then** all temporal data points are saved with timestamps/period labels
+3. **Given** the user has completed their energy map (with some or all periods set), **When** they submit, **Then** all temporal data points are saved with timestamps/period labels, and empty periods are saved as null/no data
 4. **Given** energy levels need to be adjusted, **When** the user modifies a previously set point, **Then** the visualization updates smoothly
 
 ---
@@ -114,22 +114,24 @@ Users can distribute points across multiple attributes to build a "character she
 1. **Given** a character sheet with multiple stats and a point budget, **When** the user allocates points to a stat, **Then** the remaining budget updates in real-time
 2. **Given** the user is distributing points, **When** they try to exceed the budget, **Then** the system prevents over-allocation and shows a warning
 3. **Given** stats have minimum/maximum values, **When** the user adjusts a stat, **Then** constraints are enforced visually
-4. **Given** multiple character sheets for different categories, **When** the user completes one sheet, **Then** their allocation is saved before proceeding to the next
-5. **Given** the user has allocated all points, **When** they submit, **Then** the complete stat distribution is saved with all values
+4. **Given** the user has not allocated all points, **When** they try to submit or proceed, **Then** the system blocks submission and indicates remaining points must be allocated
+5. **Given** multiple character sheets for different categories, **When** the user completes one sheet with all points allocated, **Then** their allocation is saved before proceeding to the next
+6. **Given** the user has allocated all points, **When** they submit, **Then** the complete stat distribution is saved with all values
 
 ---
 
 ### Edge Cases
 
 - What happens when a user starts a swipe gesture but rotates their device mid-gesture?
-- How does the system handle incomplete card sorting (not all cards ranked)?
+- **Incomplete card sorting**: Users can proceed with partial ranking; unranked cards are saved as "not ranked" or given default low priority
 - What happens when a user tries to set two energy points at the exact same time on the timeline?
-- How does the system handle character sheet submissions when points are not fully allocated?
+- **Character sheet incomplete allocation**: System blocks submission when points are not fully allocated and displays a message indicating remaining points must be spent
 - What happens when emoji options don't render on older devices/browsers?
 - How does touch interaction work when the user has accessibility settings enabled (e.g., reduced motion)?
-- What happens when the user navigates back to a previous question - are their input gestures preserved?
+- **Navigating back to previous question**: Original response is pre-filled and editable; any changes overwrite the original when navigating away
 - How does the system handle very long card labels that don't fit in the UI?
 - What happens when network connectivity is lost during an animated transition?
+- **Incomplete energy map**: Users can submit energy maps with empty time periods; empty periods are saved as null/no data
 
 ## Requirements *(mandatory)*
 
@@ -142,23 +144,23 @@ Users can distribute points across multiple attributes to build a "character she
 - **FR-005**: System MUST play distinct animations for positive (yes/right) and negative (no/left) responses
 - **FR-006**: System MUST implement swipe threshold detection to determine when a gesture completes vs. cancels
 - **FR-007**: System MUST support drag-and-drop reordering of cards with visual drop zone indicators
-- **FR-008**: System MUST preserve and save the complete ranking order of sorted cards
-- **FR-009**: System MUST display rank numbers on sorted cards
+- **FR-008**: System MUST preserve and save the complete ranking order of sorted cards, including both ranked cards (with their positions) and unranked cards (marked as "not ranked")
+- **FR-009**: System MUST display rank numbers on sorted cards and "not ranked" indicator on unranked cards
 - **FR-010**: System MUST provide a timeline or phase-based interface for energy/mood mapping
-- **FR-011**: System MUST allow users to plot multiple data points on the energy/mood graph
+- **FR-011**: System MUST allow users to plot multiple data points on the energy/mood graph (partial coverage allowed)
 - **FR-012**: System MUST connect plotted points with a line or curve to visualize patterns
-- **FR-013**: System MUST save temporal data with associated time periods or phase labels
+- **FR-013**: System MUST save temporal data with associated time periods or phase labels, including empty periods as null/no data
 - **FR-014**: System MUST display a set of selectable emoji reactions for statements
 - **FR-015**: System MUST provide visual feedback when an emoji is selected (animation, highlight)
 - **FR-016**: System MUST save the selected emoji value with semantic meaning preserved
 - **FR-017**: System MUST implement character sheet interface with multiple named stats/attributes
-- **FR-018**: System MUST enforce point budget constraints during character sheet allocation
+- **FR-018**: System MUST enforce point budget constraints during character sheet allocation and block submission until all points are allocated
 - **FR-019**: System MUST update remaining budget in real-time as points are allocated
-- **FR-020**: System MUST prevent point over-allocation on character sheets
-- **FR-021**: System MUST save complete stat distributions from character sheets
+- **FR-020**: System MUST prevent point over-allocation on character sheets and display warning when unallocated points remain during submission attempt
+- **FR-021**: System MUST save complete stat distributions from character sheets only when all points have been allocated
 - **FR-022**: System MUST display each question type on a separate page
 - **FR-023**: System MUST support navigation between question pages (next/previous)
-- **FR-024**: System MUST preserve user responses when navigating between pages
+- **FR-024**: System MUST preserve user responses when navigating between pages and persist responses on page transition
 - **FR-025**: System MUST associate saved responses with the correct question and input method type
 - **FR-026**: System MUST handle touch and mouse input for all interaction types
 - **FR-027**: System MUST provide visual state feedback for incomplete vs. complete responses
@@ -166,19 +168,20 @@ Users can distribute points across multiple attributes to build a "character she
 - **FR-029**: System MUST support configurable number of cards for sorting (minimum 3, maximum 15 cards)
 - **FR-030**: System MUST support configurable character sheet stats (minimum 3, maximum 10 stats)
 - **FR-031**: System MUST label each temporal data point with its corresponding time period or phase
-- **FR-032**: System MUST allow editing of previously set values within the same session
+- **FR-032**: System MUST allow editing of previously set values within the same session by pre-filling original responses when navigating back and allowing changes that overwrite the original
+- **FR-033**: System MUST save user responses to persistent storage when user navigates to next/previous question (save on page transition)
 
 ### Key Entities
 
 - **Question**: Represents a single question with an associated input method type (slider, swipe, card_sort, energy_map, emoji_reaction, character_sheet), question text, and configuration parameters
 - **Slider Configuration**: Minimum value, maximum value, endpoint labels, optional intermediate labels, step size
 - **Swipe Configuration**: Animation preferences, swipe threshold distance, positive/negative labels
-- **Card Set**: Collection of cards with text/labels to be sorted, optional descriptions
-- **Energy Map Configuration**: Time periods or phases to be mapped, energy scale range, axis labels
+- **Card Set**: Collection of cards with text/labels to be sorted, optional descriptions; supports partial ranking with unranked cards marked as "not ranked"
+- **Energy Map Configuration**: Time periods or phases to be mapped, energy scale range, axis labels; supports partial data entry with empty periods stored as null
 - **Emoji Set**: Collection of emoji options with associated semantic values/labels
-- **Character Sheet**: Set of named stats/attributes, point budget, min/max values per stat
-- **Response**: User's answer captured with the appropriate data structure (numeric value for slider, boolean for swipe, ordered array for cards, temporal points for energy map, emoji value for reaction, stat distribution object for character sheet), linked to the question
-- **Session**: Collection of responses across multiple questions, tracks progress and allows navigation
+- **Character Sheet**: Set of named stats/attributes, point budget, min/max values per stat; requires full point allocation before submission
+- **Response**: User's answer captured with the appropriate data structure (numeric value for slider, boolean for swipe, ordered array for cards with ranked/unranked status, temporal points for energy map with null for empty periods, emoji value for reaction, stat distribution object for character sheet), linked to the question; saved on page transition and pre-filled when navigating back for editing
+- **Session**: Collection of responses across multiple questions, tracks progress and allows navigation with response persistence on page transitions
 
 ## Success Criteria *(mandatory)*
 
