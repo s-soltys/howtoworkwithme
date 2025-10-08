@@ -29,14 +29,13 @@ class EmployerConfiguresQuestionnaireTest < ApplicationSystemTestCase
     # Verify category is displayed
     assert_text @category.name
 
-    # The page has multiple categories, so we'll just add a question to any category
-    # Find the first "Question text" field and use it
-    first_question_form = page.first(".card-body", text: @category.name)
+    # Find the category card div and scope to it
+    category_card = find("#category_#{@category.id}")
 
-    within(first_question_form) do
-      fill_in "Question text", with: "What are your working hours?"
-      find("select").select("Free Text")
-      check "Required"
+    within(category_card) do
+      fill_in "question[text]", with: "What are your working hours?"
+      select "Free Text", from: "question[question_type]"
+      check "question[required]"
       click_button "Add Question"
     end
 
