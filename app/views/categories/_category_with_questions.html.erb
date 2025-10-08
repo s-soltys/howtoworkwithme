@@ -1,0 +1,48 @@
+<div id="category_<%= category.id %>" class="card bg-base-200 category-card">
+  <div class="card-body">
+    <div class="flex justify-between items-start mb-4">
+      <h4 class="text-lg font-bold"><%= category.name %></h4>
+      <% unless locked %>
+        <%= button_to "Delete Category", category_path(category), method: :delete,
+            class: "btn btn-sm btn-error",
+            data: { turbo_confirm: "Are you sure? This will delete all questions in this category." } %>
+      <% end %>
+    </div>
+
+    <% unless locked %>
+      <div class="mb-4">
+        <%= form_with url: category_questions_path(category), method: :post, class: "space-y-2" do |f| %>
+          <%= f.text_area :text, placeholder: "Question text", class: "textarea textarea-bordered w-full", rows: 2 %>
+          <div class="flex gap-2">
+            <%= f.select :question_type,
+                options_for_select([
+                  ["Free Text", "text"],
+                  ["Single Choice", "single_choice"],
+                  ["Multiple Choice", "multiple_choice"],
+                  ["Yes/No", "yes_no"]
+                ]),
+                {},
+                class: "select select-bordered flex-1" %>
+            <label class="label cursor-pointer gap-2">
+              <%= f.check_box :required, class: "checkbox" %>
+              <span class="label-text">Required</span>
+            </label>
+            <%= f.submit "Add Question", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div id="category_<%= category.id %>_questions" class="space-y-2">
+      <% category.questions.each do |question| %>
+        <%= render "questions/question", question: question %>
+      <% end %>
+
+      <% if category.questions.empty? %>
+        <div class="alert alert-info">
+          <span>No questions yet. Add one above!</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

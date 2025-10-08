@@ -1,1 +1,15 @@
-# Empty fixtures for TDD
+one:
+  organization: one
+  title: "How to Work With Me"
+  description: "Tell us about your working preferences"
+  unique_token: "test-questionnaire-token-123"
+  active: true
+  locked_at: null
+
+two:
+  organization: two
+  title: "Team Preferences"
+  description: "Share your team preferences"
+  unique_token: "test-questionnaire-token-456"
+  active: true
+  locked_at: null

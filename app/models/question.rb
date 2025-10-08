@@ -12,16 +12,21 @@ class Question < ApplicationRecord
   validates :text, presence: true
   validates :question_type, presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validate :choice_questions_need_options
+  validate :choice_questions_need_options, if: :persisted?
   validate :questionnaire_not_locked, on: [:create, :update, :destroy]
 
   # Nested attributes
-  accepts_nested_attributes_for :question_options, allow_destroy: true
+  accepts_nested_attributes_for :question_options, allow_destroy: true, reject_if: :all_blank
 
   private
 
   def choice_questions_need_options
-    if (single_choice? || multiple_choice?) && question_options.size < 2
+    return unless single_choice? || multiple_choice?
+
+    # Count both persisted and new options (excluding marked for destruction)
+    total_options = question_options.reject(&:marked_for_destruction?).size
+
+    if total_options < 2
       errors.add(:base, "Choice questions must have at least 2 options")
     end
   end

@@ -1,1 +1,7 @@
-# Empty fixtures for TDD
+one:
+  name: "Test Organization"
+  unique_token: "test-org-token-123"
+
+two:
+  name: "Another Organization"
+  unique_token: "test-org-token-456"

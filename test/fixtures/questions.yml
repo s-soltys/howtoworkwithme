@@ -1,1 +1,13 @@
-# Empty fixtures for TDD
+one:
+  category: one
+  question_type: "text"
+  text: "What are your preferred working hours?"
+  position: 1
+  required: true
+
+two:
+  category: one
+  question_type: "single_choice"
+  text: "Preferred communication method?"
+  position: 2
+  required: false

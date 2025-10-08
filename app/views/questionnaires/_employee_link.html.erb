@@ -1,0 +1,20 @@
+<div class="card bg-base-200">
+  <div class="card-body">
+    <h4 class="font-semibold">Employee Link</h4>
+    <div class="flex gap-2">
+      <input type="text"
+             value="<%= questionnaire_url(questionnaire.unique_token) %>"
+             readonly
+             class="input input-bordered flex-1"
+             data-testid="employee-link"
+             id="employee_link_input">
+      <button onclick="navigator.clipboard.writeText(document.getElementById('employee_link_input').value)"
+              class="btn btn-primary">
+        Copy Link
+      </button>
+    </div>
+    <p class="text-sm text-gray-600 mt-2">
+      Share this link with employees to fill out the questionnaire.
+    </p>
+  </div>
+</div>

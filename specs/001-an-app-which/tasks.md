@@ -223,11 +223,11 @@
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T100 [US2] Write failing system test for organization creation in `test/system/employer_creates_organization_test.rb`:
+- [X] T100 [US2] Write failing system test for organization creation in `test/system/employer_creates_organization_test.rb`:
   - Employer creates organization
   - Organization dashboard loads
   - Employer creates questionnaire
-- [ ] T101 [US2] Write failing system test for questionnaire configuration in `test/system/employer_configures_questionnaire_test.rb`:
+- [X] T101 [US2] Write failing system test for questionnaire configuration in `test/system/employer_configures_questionnaire_test.rb`:
   - Employer creates categories
   - Employer adds text, single_choice, multiple_choice, yes_no questions
   - Employer reorders categories and questions
@@ -236,7 +236,7 @@
 
 ### Routes and Controllers for User Story 2
 
-- [ ] T102 [US2] Add routes to `config/routes.rb`:
+- [X] T102 [US2] Add routes to `config/routes.rb`:
   - `POST /organizations` (create organization)
   - `GET /organizations/:unique_token` (dashboard)
   - `POST /organizations/:org_token/questionnaires` (create questionnaire)
@@ -248,42 +248,42 @@
   - `POST /categories/:category_id/questions` (create question)
   - `PATCH /questions/:id` (update question)
   - `DELETE /questions/:id` (delete question)
-- [ ] T103 [P] [US2] Generate Organizations controller: `rails g controller Organizations create show`
-- [ ] T104 [US2] Write failing controller test for `OrganizationsController#create` in `test/controllers/organizations_controller_test.rb`
-- [ ] T105 [US2] Implement `OrganizationsController#create`: create organization, redirect to dashboard
-- [ ] T106 [US2] Run controller test, verify it passes
-- [ ] T107 [US2] Write failing controller test for `OrganizationsController#show` (dashboard)
-- [ ] T108 [US2] Implement `OrganizationsController#show`: find organization by token, load questionnaires, render dashboard
-- [ ] T109 [US2] Run controller test, verify it passes
-- [ ] T110 [US2] Write failing controller test for `QuestionnairesController#create` in `test/controllers/questionnaires_controller_test.rb`
-- [ ] T111 [US2] Implement `QuestionnairesController#create`: create questionnaire for organization, redirect to edit
-- [ ] T112 [US2] Run controller test, verify it passes
-- [ ] T113 [US2] Write failing controller test for `QuestionnairesController#edit`
-- [ ] T114 [US2] Implement `QuestionnairesController#edit`: find questionnaire, eager load categories/questions/options, check if locked, render configuration UI
-- [ ] T115 [US2] Run controller test, verify it passes
-- [ ] T116 [US2] Write failing controller test for `QuestionnairesController#generate_link`
-- [ ] T117 [US2] Implement `QuestionnairesController#generate_link`: return Turbo Stream with questionnaire link display
-- [ ] T118 [US2] Run controller test, verify it passes
-- [ ] T119 [P] [US2] Generate Categories controller: `rails g controller Categories create update destroy`
-- [ ] T120 [US2] Write failing controller test for `CategoriesController#create` in `test/controllers/categories_controller_test.rb`
-- [ ] T121 [US2] Implement `CategoriesController#create`: check questionnaire not locked, create category, return Turbo Stream append
-- [ ] T122 [US2] Run controller test, verify it passes
-- [ ] T123 [US2] Write failing controller test for `CategoriesController#update`
-- [ ] T124 [US2] Implement `CategoriesController#update`: check questionnaire not locked, update category, return Turbo Stream replace
-- [ ] T125 [US2] Run controller test, verify it passes
-- [ ] T126 [US2] Write failing controller test for `CategoriesController#destroy`
-- [ ] T127 [US2] Implement `CategoriesController#destroy`: check questionnaire not locked, destroy category, return Turbo Stream remove
-- [ ] T128 [US2] Run controller test, verify it passes
-- [ ] T129 [P] [US2] Generate Questions controller: `rails g controller Questions create update destroy`
-- [ ] T130 [US2] Write failing controller test for `QuestionsController#create` in `test/controllers/questions_controller_test.rb`
-- [ ] T131 [US2] Implement `QuestionsController#create`: check questionnaire not locked, create question with nested options, return Turbo Stream append
-- [ ] T132 [US2] Run controller test, verify it passes
-- [ ] T133 [US2] Write failing controller test for `QuestionsController#update`
-- [ ] T134 [US2] Implement `QuestionsController#update`: check questionnaire not locked, update question and options, return Turbo Stream replace
-- [ ] T135 [US2] Run controller test, verify it passes
-- [ ] T136 [US2] Write failing controller test for `QuestionsController#destroy`
-- [ ] T137 [US2] Implement `QuestionsController#destroy`: check questionnaire not locked, destroy question, return Turbo Stream remove
-- [ ] T138 [US2] Run controller test, verify it passes
+- [X] T103 [P] [US2] Generate Organizations controller: `rails g controller Organizations create show`
+- [X] T104 [US2] Write failing controller test for `OrganizationsController#create` in `test/controllers/organizations_controller_test.rb`
+- [X] T105 [US2] Implement `OrganizationsController#create`: create organization, redirect to dashboard
+- [X] T106 [US2] Run controller test, verify it passes
+- [X] T107 [US2] Write failing controller test for `OrganizationsController#show` (dashboard)
+- [X] T108 [US2] Implement `OrganizationsController#show`: find organization by token, load questionnaires, render dashboard
+- [X] T109 [US2] Run controller test, verify it passes
+- [X] T110 [US2] Write failing controller test for `QuestionnairesController#create` in `test/controllers/questionnaires_controller_test.rb`
+- [X] T111 [US2] Implement `QuestionnairesController#create`: create questionnaire for organization, redirect to edit
+- [X] T112 [US2] Run controller test, verify it passes
+- [X] T113 [US2] Write failing controller test for `QuestionnairesController#edit`
+- [X] T114 [US2] Implement `QuestionnairesController#edit`: find questionnaire, eager load categories/questions/options, check if locked, render configuration UI
+- [X] T115 [US2] Run controller test, verify it passes
+- [X] T116 [US2] Write failing controller test for `QuestionnairesController#generate_link`
+- [X] T117 [US2] Implement `QuestionnairesController#generate_link`: return Turbo Stream with questionnaire link display
+- [X] T118 [US2] Run controller test, verify it passes
+- [X] T119 [P] [US2] Generate Categories controller: `rails g controller Categories create update destroy`
+- [X] T120 [US2] Write failing controller test for `CategoriesController#create` in `test/controllers/categories_controller_test.rb`
+- [X] T121 [US2] Implement `CategoriesController#create`: check questionnaire not locked, create category, return Turbo Stream append
+- [X] T122 [US2] Run controller test, verify it passes
+- [X] T123 [US2] Write failing controller test for `CategoriesController#update`
+- [X] T124 [US2] Implement `CategoriesController#update`: check questionnaire not locked, update category, return Turbo Stream replace
+- [X] T125 [US2] Run controller test, verify it passes
+- [X] T126 [US2] Write failing controller test for `CategoriesController#destroy`
+- [X] T127 [US2] Implement `CategoriesController#destroy`: check questionnaire not locked, destroy category, return Turbo Stream remove
+- [X] T128 [US2] Run controller test, verify it passes
+- [X] T129 [P] [US2] Generate Questions controller: `rails g controller Questions create update destroy`
+- [X] T130 [US2] Write failing controller test for `QuestionsController#create` in `test/controllers/questions_controller_test.rb`
+- [X] T131 [US2] Implement `QuestionsController#create`: check questionnaire not locked, create question with nested options, return Turbo Stream append
+- [X] T132 [US2] Run controller test, verify it passes
+- [X] T133 [US2] Write failing controller test for `QuestionsController#update`
+- [X] T134 [US2] Implement `QuestionsController#update`: check questionnaire not locked, update question and options, return Turbo Stream replace
+- [X] T135 [US2] Run controller test, verify it passes
+- [X] T136 [US2] Write failing controller test for `QuestionsController#destroy`
+- [X] T137 [US2] Implement `QuestionsController#destroy`: check questionnaire not locked, destroy question, return Turbo Stream remove
+- [X] T138 [US2] Run controller test, verify it passes
 
 ### Service Objects for User Story 2
 
@@ -300,16 +300,16 @@
 
 ### Views for User Story 2
 
-- [ ] T145 [P] [US2] Create organization creation form view in `app/views/organizations/new.html.erb`:
+- [X] T145 [P] [US2] Create organization creation form view in `app/views/organizations/new.html.erb`:
   - Form to enter organization name
   - "Create Organization" button
   - DaisyUI components: form-control, input, btn-primary
-- [ ] T146 [P] [US2] Create organization dashboard view in `app/views/organizations/show.html.erb`:
+- [X] T146 [P] [US2] Create organization dashboard view in `app/views/organizations/show.html.erb`:
   - Organization name
   - List of questionnaires
   - "Create Questionnaire" button
   - DaisyUI components: card, btn-primary
-- [ ] T147 [P] [US2] Create questionnaire configuration view in `app/views/questionnaires/edit.html.erb`:
+- [X] T147 [P] [US2] Create questionnaire configuration view in `app/views/questionnaires/edit.html.erb`:
   - Questionnaire title and description
   - List of categories (with add/edit/delete buttons)
   - List of questions per category (with add/edit/delete buttons)
@@ -318,22 +318,22 @@
   - Locked UI indicator if questionnaire is locked
   - Turbo Frame: #questionnaire_configuration
   - DaisyUI components: card, btn-primary, btn-error, alert
-- [ ] T148 [P] [US2] Create category form partial in `app/views/categories/_form.html.erb`:
+- [X] T148 [P] [US2] Create category form partial in `app/views/categories/_form.html.erb`:
   - Name input
   - Position input (optional)
   - DaisyUI components: form-control, input
-- [ ] T149 [P] [US2] Create category card partial in `app/views/categories/_category.html.erb`:
+- [X] T149 [P] [US2] Create category card partial in `app/views/categories/_category.html.erb`:
   - Category name
   - Edit/Delete buttons (disabled if locked)
   - List of questions
   - DaisyUI components: card, btn-sm, btn-ghost
-- [ ] T150 [P] [US2] Create question form partial in `app/views/questions/_form.html.erb`:
+- [X] T150 [P] [US2] Create question form partial in `app/views/questions/_form.html.erb`:
   - Question text input
   - Question type select (text, single_choice, multiple_choice, yes_no)
   - Dynamic options fields for choice types (Stimulus controller)
   - Required checkbox
   - DaisyUI components: form-control, textarea, select, checkbox
-- [ ] T151 [P] [US2] Create question card partial in `app/views/questions/_question.html.erb`:
+- [X] T151 [P] [US2] Create question card partial in `app/views/questions/_question.html.erb`:
   - Question text
   - Question type badge
   - Options display (for choice types)
@@ -351,10 +351,10 @@
 
 ### Integration for User Story 2
 
-- [ ] T155 [US2] Add nested attributes support to Question model for question_options: `accepts_nested_attributes_for :question_options, allow_destroy: true`
-- [ ] T156 [US2] Add strong parameters for nested question_options in QuestionsController
-- [ ] T157 [US2] Add before_action to check questionnaire locked status in Categories and Questions controllers
-- [ ] T158 [US2] Implement questionnaire locking logic: add `locked?` method to Questionnaire model, check in controllers
+- [X] T155 [US2] Add nested attributes support to Question model for question_options: `accepts_nested_attributes_for :question_options, allow_destroy: true`
+- [X] T156 [US2] Add strong parameters for nested question_options in QuestionsController
+- [X] T157 [US2] Add before_action to check questionnaire locked status in Categories and Questions controllers
+- [X] T158 [US2] Implement questionnaire locking logic: add `locked?` method to Questionnaire model, check in controllers
 - [ ] T159 [US2] Run full system test: `rails test:system test/system/employer_creates_organization_test.rb`
 - [ ] T160 [US2] Run full system test: `rails test:system test/system/employer_configures_questionnaire_test.rb`
 - [ ] T161 [US2] Fix any failing tests

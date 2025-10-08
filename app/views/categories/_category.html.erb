@@ -1,0 +1,9 @@
+<div id="category_<%= category.id %>" class="card bg-base-200 mb-4 category-card">
+  <div class="card-body">
+    <h3 class="card-title"><%= category.name %></h3>
+    <p class="text-sm text-gray-500">Position: <%= category.position %></p>
+    <div class="card-actions justify-end">
+      <%= button_to "Delete", category_path(category), method: :delete, class: "btn btn-sm btn-error", data: { turbo_confirm: "Are you sure?" } %>
+    </div>
+  </div>
+</div>

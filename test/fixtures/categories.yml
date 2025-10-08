@@ -1,1 +1,9 @@
-# Empty fixtures for TDD
+one:
+  questionnaire: one
+  name: "Work Style"
+  position: 1
+
+two:
+  questionnaire: one
+  name: "Communication Preferences"
+  position: 2
