@@ -103,13 +103,13 @@
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T054 [US1] Write failing system test for employee questionnaire flow in `test/system/employee_completes_questionnaire_test.rb`:
+- [X] T054 [US1] Write failing system test for employee questionnaire flow in `test/system/employee_completes_questionnaire_test.rb`:
   - Employee opens questionnaire link
   - Sees all categories and questions
   - Answers text, multiple choice, and yes/no questions
   - Submits questionnaire
   - Receives shareable profile link
-- [ ] T055 [US1] Write failing system test for profile viewing in `test/system/profile_viewing_test.rb`:
+- [X] T055 [US1] Write failing system test for profile viewing in `test/system/profile_viewing_test.rb`:
   - Colleague opens profile link
   - Sees employee name
   - Sees all answers organized by category
@@ -155,9 +155,9 @@
 - [X] T076 [US1] Implement `ResponsesController#submit`: call Responses::SubmitFinal, redirect to profile on success
 - [X] T077 [US1] Run controller test, verify it passes
 - [X] T078 [P] [US1] Create service directory: `mkdir -p app/services/profiles`
-- [ ] T079 [US1] Write failing test for Profile generation in `test/services/profiles/generate_shareable_link_test.rb`
-- [ ] T080 [US1] Implement `Profiles::GenerateShareableLink` service in `app/services/profiles/generate_shareable_link.rb` (if needed separately from SubmitFinal)
-- [ ] T081 [US1] Run service test, verify it passes
+- [X] T079 [US1] Write failing test for Profile generation in `test/services/profiles/generate_shareable_link_test.rb`
+- [X] T080 [US1] Implement `Profiles::GenerateShareableLink` service in `app/services/profiles/generate_shareable_link.rb` (if needed separately from SubmitFinal)
+- [X] T081 [US1] Run service test, verify it passes
 - [X] T082 [P] [US1] Generate Profiles controller: `rails g controller Profiles show`
 - [X] T083 [US1] Write failing controller test for `ProfilesController#show` in `test/controllers/profiles_controller_test.rb`
 - [X] T084 [US1] Implement `ProfilesController#show`: find profile by token, eager load response/answers/questions/categories, render 404 if not found
@@ -197,17 +197,17 @@
   - Show "Saving..." status
   - Submit form via Turbo
   - Handle response and update status
-- [ ] T092 [US1] Test autosave controller manually: type in field, verify "Saving..." → "Saved" after 2s
+- [X] T092 [US1] Test autosave controller manually: type in field, verify "Saving..." → "Saved" after 2s
 
 ### Integration for User Story 1
 
 - [X] T093 [US1] Add nested attributes support to Response model for answers: `accepts_nested_attributes_for :answers`
 - [X] T094 [US1] Add strong parameters for nested answers in ResponsesController
-- [ ] T095 [US1] Test draft save/restore: start questionnaire, answer questions, leave, return to same link, verify answers restored
-- [ ] T096 [US1] Run full system test: `rails test:system test/system/employee_completes_questionnaire_test.rb`
-- [ ] T097 [US1] Run full system test: `rails test:system test/system/profile_viewing_test.rb`
-- [ ] T098 [US1] Fix any failing tests
-- [ ] T099 [US1] Run all tests for User Story 1: `rails test`
+- [X] T095 [US1] Test draft save/restore: start questionnaire, answer questions, leave, return to same link, verify answers restored
+- [X] T096 [US1] Run full system test: `rails test:system test/system/employee_completes_questionnaire_test.rb`
+- [X] T097 [US1] Run full system test: `rails test:system test/system/profile_viewing_test.rb`
+- [X] T098 [US1] Fix any failing tests
+- [X] T099 [US1] Run all tests for User Story 1: `rails test`
 
 **Checkpoint**: User Story 1 (MVP) is complete and independently testable. Employee can fill questionnaire and generate shareable profile.
 

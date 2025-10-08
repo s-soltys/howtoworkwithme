@@ -8,7 +8,12 @@
       "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
       "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
       "Bash(bundle install:*)",
-      "Bash(rails:*)"
+      "Bash(rails:*)",
+      "Bash(if [ -d \"/Users/szymon/howtoworkwithme/specs/001-an-app-which/checklists\" ])",
+      "Bash(then echo \"exists\")",
+      "Bash(else echo \"not found\")",
+      "Bash(fi)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
