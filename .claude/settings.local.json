@@ -1,11 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
-      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
       "Bash(.specify/scripts/bash/setup-plan.sh:*)",
-      "Bash(ruby --version)",
-      "Bash(ruby *)"
+      "Bash(cat:*)",
+      "Bash(rails --version)",
+      "WebSearch",
+      "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)"
     ],
     "deny": [],
     "ask": []
