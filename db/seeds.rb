@@ -190,3 +190,4 @@ puts "\n🎉 Seeding complete!"
 puts "\n📋 Access URLs:"
 puts "  Admin (edit questionnaire): /questionnaires/#{questionnaire.unique_token}/edit"
 puts "  Employee (fill questionnaire): /responses/#{response.unique_token}/edit"
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

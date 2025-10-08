@@ -65,3 +65,7 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 4.3"
+
+# Admin interface with minimal dependencies
+gem "activeadmin"
+gem "devise" # Required by ActiveAdmin for authentication
