@@ -8,14 +8,15 @@ class EmployerCreatesOrganizationTest < ApplicationSystemTestCase
     # Click "Create Organization" link
     click_on "Create Organization"
 
-    # Fill in organization name
-    fill_in "Name", with: "Acme Corp"
+    # Fill in organization name with unique name to avoid test pollution
+    unique_org_name = "Acme Corp #{Time.now.to_i}"
+    fill_in "Name", with: unique_org_name
 
     # Submit form
     click_button "Create Organization"
 
     # Should see organization dashboard (with explicit wait for Turbo navigation)
-    assert_selector "h1", text: "Acme Corp Dashboard", wait: 5
+    assert_selector "h1", text: "#{unique_org_name} Dashboard", wait: 5
     assert_text "Organization created successfully"
   end
 
