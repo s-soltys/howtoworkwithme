@@ -6,3 +6,60 @@
 @plugin "./daisyui-theme.mjs"{
   /* custom theme here */
 }
+
+/* Swipe Yes/No question styles */
+.swipe-container {
+  position: relative;
+  touch-action: none; /* Prevent browser pan/zoom during swipe */
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swipe-card {
+  transition: transform 0.3s ease-out;
+  user-select: none; /* Prevent text selection during drag */
+  max-width: 500px;
+  width: 100%;
+}
+
+.swipe-card:active {
+  cursor: grabbing;
+}
+
+.swipe-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.swipe-indicator--yes {
+  right: 2rem;
+  color: oklch(var(--su)); /* DaisyUI success color */
+}
+
+.swipe-indicator--no {
+  left: 2rem;
+  color: oklch(var(--er)); /* DaisyUI error color */
+}
+
+@media (max-width: 640px) {
+  .swipe-indicator {
+    font-size: 1.5rem;
+  }
+
+  .swipe-indicator--yes {
+    right: 1rem;
+  }
+
+  .swipe-indicator--no {
+    left: 1rem;
+  }
+}

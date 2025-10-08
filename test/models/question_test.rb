@@ -102,4 +102,37 @@ class QuestionTest < ActiveSupport::TestCase
     assert_not question.valid?
     assert_includes question.errors[:settings], "min_value must be less than max_value"
   end
+
+  # Swipe yes/no question tests (T025)
+  test "swipe_yes_no question should be valid with proper settings" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "swipe_yes_no",
+      text: "Do you enjoy working remotely?",
+      position: 1,
+      settings: {
+        swipe_threshold: 0.3,
+        positive_label: "Yes",
+        negative_label: "No",
+        animation_duration: 300
+      }
+    )
+    assert question.valid?
+  end
+
+  test "swipe_yes_no question is valid with minimal settings" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "swipe_yes_no",
+      text: "Do you like meetings?",
+      position: 1,
+      settings: {}
+    )
+    # Settings are optional for swipe_yes_no - defaults will be used in UI
+    assert question.valid?
+  end
 end

@@ -104,4 +104,51 @@ class AnswerTest < ActiveSupport::TestCase
     answer = response.answers.build(question: question, numeric_value: 7)
     assert answer.valid?
   end
+
+  # Swipe yes/no answer tests (T026)
+  test "swipe_yes_no question should require boolean_value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "swipe_yes_no",
+      text: "Do you like remote work?",
+      position: 1,
+      settings: {}
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(question: question)
+    assert_not answer.valid?
+    assert_includes answer.errors[:boolean_value], "must be present for required swipe yes/no questions"
+  end
+
+  test "swipe_yes_no answer should be valid with true value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "swipe_yes_no",
+      text: "Do you like remote work?",
+      position: 1,
+      settings: {}
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(question: question, boolean_value: true)
+    assert answer.valid?
+  end
+
+  test "swipe_yes_no answer should be valid with false value" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "swipe_yes_no",
+      text: "Do you like remote work?",
+      position: 1,
+      settings: {}
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(question: question, boolean_value: false)
+    assert answer.valid?
+  end
 end

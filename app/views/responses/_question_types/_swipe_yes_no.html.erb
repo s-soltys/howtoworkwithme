@@ -1,0 +1,39 @@
+<div data-controller="swipe"
+     data-swipe-threshold-value="<%= question.settings['swipe_threshold'] || 0.3 %>"
+     data-action="swipe:swiped->autosave#handleSwipe keydown->swipe#keyDown"
+     tabindex="0"
+     class="swipe-container relative mb-6 focus:outline-none">
+
+  <div data-swipe-target="card" class="swipe-card card bg-base-100 shadow-xl cursor-grab active:cursor-grabbing"
+       data-action="pointerdown->swipe#start
+                    pointermove->swipe#move
+                    pointerup->swipe#end
+                    pointercancel->swipe#cancel
+                    touchstart->swipe#start
+                    touchmove->swipe#move
+                    touchend->swipe#end">
+    <div class="card-body text-center py-12">
+      <h2 class="card-title justify-center text-2xl mb-4"><%= question.text %></h2>
+      <% if question.required? %>
+        <span class="badge badge-error badge-sm">*Required</span>
+      <% end %>
+      <p class="text-sm opacity-50 mt-4">Swipe right for <%= question.settings['positive_label'] || 'Yes' %>, left for <%= question.settings['negative_label'] || 'No' %></p>
+      <p class="text-xs opacity-30 mt-2">Or use ← → arrow keys</p>
+    </div>
+  </div>
+
+  <!-- Visual indicators -->
+  <div data-swipe-target="yesIndicator" class="swipe-indicator swipe-indicator--yes">
+    <%= question.settings['positive_label'] || 'YES' %> ✓
+  </div>
+
+  <div data-swipe-target="noIndicator" class="swipe-indicator swipe-indicator--no">
+    <%= question.settings['negative_label'] || 'NO' %> ✗
+  </div>
+
+  <!-- Hidden field for form submission -->
+  <%= hidden_field_tag "response[answers_attributes][#{question.id}][boolean_value]",
+                       answer&.boolean_value,
+                       data: { swipe_target: 'hiddenField' } %>
+  <%= hidden_field_tag "response[answers_attributes][#{question.id}][question_id]", question.id %>
+</div>
