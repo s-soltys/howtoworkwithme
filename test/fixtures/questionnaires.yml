@@ -29,3 +29,11 @@ locked_questionnaire:
   unique_token: "test-locked-questionnaire-token"
   active: true
   locked_at: <%= 1.day.ago %>
+
+employee_preferences:
+  organization: acme
+  title: "Employee Preferences Survey"
+  description: "Share your working preferences with the team"
+  unique_token: "employee-preferences-token-123"
+  active: true
+  locked_at: null

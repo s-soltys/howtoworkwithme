@@ -7,3 +7,18 @@ two:
   questionnaire: one
   name: "Communication Preferences"
   position: 2
+
+pref_work_style:
+  questionnaire: employee_preferences
+  name: "Work Style"
+  position: 1
+
+pref_communication:
+  questionnaire: employee_preferences
+  name: "Communication"
+  position: 2
+
+pref_collaboration:
+  questionnaire: employee_preferences
+  name: "Collaboration"
+  position: 3

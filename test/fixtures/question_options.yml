@@ -1,1 +1,36 @@
-# Empty fixtures for TDD
+# Question options for single_choice question
+pref_single_option1:
+  question: pref_single_choice_question
+  text: "Email"
+  position: 1
+
+pref_single_option2:
+  question: pref_single_choice_question
+  text: "Slack"
+  position: 2
+
+pref_single_option3:
+  question: pref_single_choice_question
+  text: "Video call"
+  position: 3
+
+# Question options for multiple_choice question
+pref_multi_option1:
+  question: pref_multiple_choice_question
+  text: "Slack"
+  position: 1
+
+pref_multi_option2:
+  question: pref_multiple_choice_question
+  text: "Email"
+  position: 2
+
+pref_multi_option3:
+  question: pref_multiple_choice_question
+  text: "Zoom"
+  position: 3
+
+pref_multi_option4:
+  question: pref_multiple_choice_question
+  text: "GitHub"
+  position: 4

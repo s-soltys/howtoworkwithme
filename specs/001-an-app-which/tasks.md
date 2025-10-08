@@ -375,7 +375,7 @@
 
 **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T164 [US3] Write failing system test for employer dashboard in `test/system/employer_views_responses_test.rb`:
+- [X] T164 [US3] Write failing system test for employer dashboard in `test/system/employer_views_responses_test.rb`:
   - Create questionnaire with 3 categories, 5 questions
   - 3 employees fill out questionnaire (via US1 flow)
   - Employer views responses table
@@ -386,26 +386,26 @@
 
 ### Routes and Controllers for User Story 3
 
-- [ ] T165 [US3] Add route to `config/routes.rb`:
+- [X] T165 [US3] Add route to `config/routes.rb`:
   - `GET /questionnaires/:unique_token/responses` (responses table)
-- [ ] T166 [US3] Write failing controller test for `QuestionnairesController#responses` in `test/controllers/questionnaires_controller_test.rb`
-- [ ] T167 [US3] Implement `QuestionnairesController#responses`:
+- [X] T166 [US3] Write failing controller test for `QuestionnairesController#responses` in `test/controllers/questionnaires_controller_test.rb`
+- [X] T167 [US3] Implement `QuestionnairesController#responses`:
   - Find questionnaire by token
   - Eager load categories → questions → responses → answers → employees (prevent N+1)
   - Get most recent response per employee using DISTINCT ON or group_by
   - Render responses table view
-- [ ] T168 [US3] Run controller test, verify it passes
-- [ ] T169 [US3] Test N+1 prevention: Use Bullet gem or manual query counting to verify no N+1 queries
+- [X] T168 [US3] Run controller test, verify it passes
+- [X] T169 [US3] Test N+1 prevention: Use Bullet gem or manual query counting to verify no N+1 queries
 
 ### Views for User Story 3
 
-- [ ] T170 [P] [US3] Create responses table view in `app/views/questionnaires/responses.html.erb`:
+- [X] T170 [P] [US3] Create responses table view in `app/views/questionnaires/responses.html.erb`:
   - Table with employees as rows, questions as columns
   - Table header: Category name | Question text
   - Table body: Employee name | Answers
   - Turbo Frame: #responses_table
   - DaisyUI components: table, table-zebra, overflow-x-auto
-- [ ] T171 [P] [US3] Create response row partial in `app/views/responses/_response_row.html.erb`:
+- [X] T171 [P] [US3] Create response row partial in `app/views/questionnaires/_response_row.html.erb`:
   - Employee name in first column
   - Answer cells for each question
   - Handle different answer types (text, selected option(s), boolean)
@@ -413,32 +413,32 @@
 
 ### Helpers for User Story 3
 
-- [ ] T172 [US3] Create QuestionnairesHelper in `app/helpers/questionnaires_helper.rb`:
+- [X] T172 [US3] Create QuestionnairesHelper in `app/helpers/questionnaires_helper.rb`:
   - Method to format answer display based on question type
   - Method to group questions by category for table header
-- [ ] T173 [US3] Write failing test for helpers in `test/helpers/questionnaires_helper_test.rb`
-- [ ] T174 [US3] Implement helper methods
-- [ ] T175 [US3] Run helper test, verify it passes
+- [X] T173 [US3] Write failing test for helpers in `test/helpers/questionnaires_helper_test.rb`
+- [X] T174 [US3] Implement helper methods
+- [X] T175 [US3] Run helper test, verify it passes
 
 ### Real-Time Updates (Turbo Streams) for User Story 3
 
-- [ ] T176 [US3] Add Turbo Stream broadcast to Responses::SubmitFinal service:
+- [X] T176 [US3] Add Turbo Stream broadcast to Responses::SubmitFinal service:
   - After successful submission, broadcast to "questionnaire_#{questionnaire.id}_responses" channel
   - Append or update response row in employer dashboard table
   - Use `Turbo::StreamsChannel.broadcast_append_later_to` or similar
-- [ ] T177 [US3] Add Turbo Stream subscription to responses table view:
+- [X] T177 [US3] Add Turbo Stream subscription to responses table view:
   - `<%= turbo_stream_from "questionnaire_#{@questionnaire.id}_responses" %>`
   - Test: open employer dashboard, have employee submit (in different browser/tab), verify table updates automatically
 
 ### Integration for User Story 3
 
-- [ ] T178 [US3] Add link to responses table from questionnaire edit page (US2)
-- [ ] T179 [US3] Add link to responses table from organization dashboard (US2)
-- [ ] T180 [US3] Test response versioning: employee submits multiple times, verify dashboard shows most recent submission only
-- [ ] T181 [US3] Run full system test: `rails test:system test/system/employer_views_responses_test.rb`
-- [ ] T182 [US3] Fix any failing tests
-- [ ] T183 [US3] Run all tests for User Story 3: `rails test`
-- [ ] T184 [US3] Integration test across all stories:
+- [X] T178 [US3] Add link to responses table from questionnaire edit page (US2)
+- [X] T179 [US3] Add link to responses table from organization dashboard (US2)
+- [X] T180 [US3] Test response versioning: employee submits multiple times, verify dashboard shows most recent submission only
+- [X] T181 [US3] Run full system test: `rails test:system test/system/employer_views_responses_test.rb`
+- [X] T182 [US3] Fix any failing tests
+- [X] T183 [US3] Run all tests for User Story 3: `rails test`
+- [X] T184 [US3] Integration test across all stories:
   - Employer creates organization (US2)
   - Employer configures questionnaire (US2)
   - Generate employee link (US2)

@@ -5,3 +5,7 @@ one:
 two:
   name: "Another Organization"
   unique_token: "test-org-token-456"
+
+acme:
+  name: "Acme Corporation"
+  unique_token: "acme-org-token-789"

@@ -29,6 +29,9 @@ module Responses
         # Generate profile with unique token
         profile = @response.create_profile!
 
+        # Broadcast to employer dashboard for real-time updates
+        broadcast_to_dashboard
+
         { success: true, profile: profile, response: @response }
       end
     rescue ActiveRecord::RecordInvalid => e
@@ -38,6 +41,29 @@ module Responses
     end
 
     private
+
+    def broadcast_to_dashboard
+      # Reload response with all associations for rendering
+      response_with_associations = Response.includes(
+        :employee,
+        answers: [:question, :selected_option, question: :question_options],
+        questionnaire: { categories: { questions: :question_options } }
+      ).find(@response.id)
+
+      # Get questions ordered for the table
+      questions = @questionnaire.questions
+        .includes(:question_options)
+        .order("categories.position, questions.position")
+        .joins(:category)
+
+      # Broadcast Turbo Stream to update the employer dashboard
+      Turbo::StreamsChannel.broadcast_append_to(
+        "questionnaire_#{@questionnaire.id}_responses",
+        target: "responses_table_body",
+        partial: "questionnaires/response_row",
+        locals: { response: response_with_associations, questions: questions }
+      )
+    end
 
     def all_required_questions_answered?
       # Get all required questions from the questionnaire

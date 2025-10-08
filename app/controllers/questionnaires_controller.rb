@@ -63,13 +63,25 @@ class QuestionnairesController < ApplicationController
 
   # GET /questionnaires/:unique_token/responses
   def responses
-    # Get most recent response per employee
-    @responses = @questionnaire.responses
+    # Eager load categories and questions for the table header
+    @categories = @questionnaire.categories.includes(:questions).order(:position)
+    @questions = @questionnaire.questions.includes(:question_options).order("categories.position, questions.position").joins(:category)
+
+    # Get most recent response per employee with all associations eager loaded
+    # to prevent N+1 queries
+    all_responses = @questionnaire.responses
       .submitted
-      .includes(:employee, answers: [:question, :selected_option])
+      .includes(
+        :employee,
+        answers: [:question, :selected_option, question: :question_options]
+      )
       .order(submitted_at: :desc)
+
+    # Group by employee and get most recent per employee
+    @responses = all_responses
       .group_by(&:employee_id)
       .map { |_, responses| responses.first }
+      .sort_by { |r| r.employee&.name || "" }
   end
 
   private
