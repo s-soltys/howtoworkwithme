@@ -349,4 +349,9 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
+
+  # Use Tailwind CSS with ActiveAdmin
+  config.clear_stylesheets!
+  config.register_stylesheet "tailwind.css"
+  config.register_stylesheet "active_admin.css"
 end
