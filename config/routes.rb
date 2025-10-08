@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Admin routes
+  get "admin/component-library", to: "admin#component_library"
 end
