@@ -1,0 +1,63 @@
+<div class="mb-6">
+  <div class="label">
+    <span class="label-text text-lg font-semibold"><%= question.text %></span>
+    <% if question.required? %>
+      <span class="label-text-alt text-error">*Required</span>
+    <% end %>
+  </div>
+
+  <div class="alert alert-info mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <span>Drag and drop cards to rank them from most to least important</span>
+  </div>
+
+  <div data-controller="card-sort"
+       data-card-sort-animation-value="150"
+       data-action="card-sort:sorted->autosave#save"
+       class="space-y-3">
+
+    <% cards = question.settings['cards'] || [] %>
+    <% existing_ranking = answer&.jsonb_value&.dig('ranked') || [] %>
+    <%
+      # Sort cards by existing ranking if available, otherwise use default order
+      sorted_cards = if existing_ranking.any?
+        existing_ranking.map { |r| cards.find { |c| c['id'] == r['id'] } }.compact +
+        cards.reject { |c| existing_ranking.any? { |r| r['id'] == c['id'] } }
+      else
+        cards
+      end
+    %>
+
+    <% sorted_cards.each_with_index do |card, index| %>
+      <div class="card card-compact bg-base-200 shadow-md cursor-move hover:shadow-lg transition-shadow"
+           data-card-sort-target="card"
+           data-card-id="<%= card['id'] %>">
+        <div class="card-body">
+          <div class="flex items-center gap-4">
+            <div class="badge badge-primary badge-lg" data-rank-badge>
+              <%= index + 1 %>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold"><%= card['text'] %></h3>
+              <% if card['description'].present? %>
+                <p class="text-sm opacity-70 mt-1"><%= card['description'] %></p>
+              <% end %>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 opacity-50">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= hidden_field_tag "response[answers_attributes][#{question.id}][jsonb_value]",
+                         (answer&.jsonb_value || {}).to_json,
+                         data: { card_sort_target: "hiddenInput" } %>
+    <%= hidden_field_tag "response[answers_attributes][#{question.id}][question_id]", question.id %>
+  </div>
+
+  <div class="mt-4 text-sm opacity-70 text-center">
+    <p>Your top choice will be at rank #1</p>
+  </div>
+</div>

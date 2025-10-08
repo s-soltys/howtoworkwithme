@@ -135,4 +135,99 @@ class QuestionTest < ActiveSupport::TestCase
     # Settings are optional for swipe_yes_no - defaults will be used in UI
     assert question.valid?
   end
+
+  # Card sort question tests (T036)
+  test "card_sort question should be valid with proper settings" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "card_sort",
+      text: "Rank these work values by importance",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Work-life balance" },
+          { id: "card-2", text: "Career growth" },
+          { id: "card-3", text: "Compensation" },
+          { id: "card-4", text: "Team culture" }
+        ],
+        allow_partial_ranking: true
+      }
+    )
+    assert question.valid?
+  end
+
+  test "card_sort question requires cards array" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "card_sort",
+      text: "Rank these",
+      position: 1,
+      settings: { allow_partial_ranking: true }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "must include cards array"
+  end
+
+  test "card_sort question requires minimum 3 cards" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "card_sort",
+      text: "Rank these",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Option 1" },
+          { id: "card-2", text: "Option 2" }
+        ]
+      }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "must have between 3 and 15 cards"
+  end
+
+  test "card_sort question requires unique card IDs" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "card_sort",
+      text: "Rank these",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Option 1" },
+          { id: "card-1", text: "Option 2" },
+          { id: "card-3", text: "Option 3" }
+        ]
+      }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "card IDs must be unique"
+  end
+
+  test "card_sort question requires id and text for each card" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.build(
+      question_type: "card_sort",
+      text: "Rank these",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Option 1" },
+          { id: "card-2" },  # Missing text
+          { text: "Option 3" }  # Missing id
+        ]
+      }
+    )
+    assert_not question.valid?
+    assert_includes question.errors[:settings], "each card must have an id and text"
+  end
 end

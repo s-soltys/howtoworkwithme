@@ -151,4 +151,150 @@ class AnswerTest < ActiveSupport::TestCase
     answer = response.answers.build(question: question, boolean_value: false)
     assert answer.valid?
   end
+
+  # Card sort answer tests (T037)
+  test "card_sort question should require jsonb_value with ranked cards" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "card_sort",
+      text: "Rank these work values",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Work-life balance" },
+          { id: "card-2", text: "Career growth" },
+          { id: "card-3", text: "Compensation" }
+        ]
+      }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(question: question)
+    assert_not answer.valid?
+    assert_includes answer.errors[:jsonb_value], "must include at least one ranked card for required card sort questions"
+  end
+
+  test "card_sort answer should be valid with properly ranked cards" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "card_sort",
+      text: "Rank these work values",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Work-life balance" },
+          { id: "card-2", text: "Career growth" },
+          { id: "card-3", text: "Compensation" }
+        ]
+      }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(
+      question: question,
+      jsonb_value: {
+        ranked: [
+          { id: "card-2", rank: 1 },
+          { id: "card-1", rank: 2 },
+          { id: "card-3", rank: 3 }
+        ],
+        unranked: []
+      }
+    )
+    assert answer.valid?
+  end
+
+  test "card_sort answer should reject invalid card IDs" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "card_sort",
+      text: "Rank these work values",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Work-life balance" },
+          { id: "card-2", text: "Career growth" },
+          { id: "card-3", text: "Compensation" }
+        ]
+      }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(
+      question: question,
+      jsonb_value: {
+        ranked: [
+          { id: "card-99", rank: 1 }  # Invalid ID
+        ],
+        unranked: []
+      }
+    )
+    assert_not answer.valid?
+    assert_includes answer.errors[:jsonb_value], "contains invalid card IDs: card-99"
+  end
+
+  test "card_sort answer should reject duplicate card IDs" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "card_sort",
+      text: "Rank these work values",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Work-life balance" },
+          { id: "card-2", text: "Career growth" },
+          { id: "card-3", text: "Compensation" }
+        ]
+      }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(
+      question: question,
+      jsonb_value: {
+        ranked: [
+          { id: "card-1", rank: 1 },
+          { id: "card-1", rank: 2 }  # Duplicate
+        ],
+        unranked: []
+      }
+    )
+    assert_not answer.valid?
+    assert_includes answer.errors[:jsonb_value], "contains duplicate card IDs"
+  end
+
+  test "card_sort answer should require sequential ranks" do
+    org = Organization.create!(name: "Acme")
+    quest = org.questionnaires.create!(title: "Survey")
+    category = quest.categories.create!(name: "Personal", position: 1)
+    question = category.questions.create!(
+      question_type: "card_sort",
+      text: "Rank these work values",
+      position: 1,
+      settings: {
+        cards: [
+          { id: "card-1", text: "Work-life balance" },
+          { id: "card-2", text: "Career growth" },
+          { id: "card-3", text: "Compensation" }
+        ]
+      }
+    )
+    response = quest.responses.create!
+    answer = response.answers.build(
+      question: question,
+      jsonb_value: {
+        ranked: [
+          { id: "card-1", rank: 1 },
+          { id: "card-2", rank: 3 }  # Gap in sequence
+        ],
+        unranked: []
+      }
+    )
+    assert_not answer.valid?
+    assert_includes answer.errors[:jsonb_value], "ranks must be sequential starting from 1"
+  end
 end
