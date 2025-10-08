@@ -117,72 +117,72 @@
 
 ### Routes and Controllers for User Story 1
 
-- [ ] T056 [US1] Add routes to `config/routes.rb`:
+- [X] T056 [US1] Add routes to `config/routes.rb`:
   - `GET /questionnaires/:unique_token` (landing page)
   - `POST /questionnaires/:unique_token/start` (create draft response)
   - `GET /responses/:unique_token/edit` (questionnaire form)
   - `PATCH /responses/:unique_token` (autosave draft)
   - `POST /responses/:unique_token/submit` (final submission)
   - `GET /profiles/:unique_token` (view profile)
-- [ ] T057 [P] [US1] Generate Questionnaires controller: `rails g controller Questionnaires show start`
-- [ ] T058 [US1] Write failing controller test for `QuestionnairesController#show` in `test/controllers/questionnaires_controller_test.rb`
-- [ ] T059 [US1] Implement `QuestionnairesController#show` in `app/controllers/questionnaires_controller.rb`: find questionnaire by token, render landing page
-- [ ] T060 [US1] Run controller test, verify it passes: `rails test test/controllers/questionnaires_controller_test.rb`
-- [ ] T061 [US1] Write failing controller test for `QuestionnairesController#start`
-- [ ] T062 [US1] Implement `QuestionnairesController#start`: create employee, create draft response, redirect to response edit
-- [ ] T063 [US1] Run controller test, verify it passes
-- [ ] T064 [P] [US1] Generate Responses controller: `rails g controller Responses edit update submit`
-- [ ] T065 [US1] Write failing controller test for `ResponsesController#edit` in `test/controllers/responses_controller_test.rb`
-- [ ] T066 [US1] Implement `ResponsesController#edit`: find response by token, eager load questionnaire/categories/questions/options, render form
-- [ ] T067 [US1] Run controller test, verify it passes
-- [ ] T068 [US1] Write failing controller test for `ResponsesController#update` (autosave)
-- [ ] T069 [US1] Implement `ResponsesController#update`: accept nested answers_attributes, update response, return Turbo Stream with save status
-- [ ] T070 [US1] Run controller test, verify it passes
+- [X] T057 [P] [US1] Generate Questionnaires controller: `rails g controller Questionnaires show start`
+- [X] T058 [US1] Write failing controller test for `QuestionnairesController#show` in `test/controllers/questionnaires_controller_test.rb`
+- [X] T059 [US1] Implement `QuestionnairesController#show` in `app/controllers/questionnaires_controller.rb`: find questionnaire by token, render landing page
+- [X] T060 [US1] Run controller test, verify it passes: `rails test test/controllers/questionnaires_controller_test.rb`
+- [X] T061 [US1] Write failing controller test for `QuestionnairesController#start`
+- [X] T062 [US1] Implement `QuestionnairesController#start`: create employee, create draft response, redirect to response edit
+- [X] T063 [US1] Run controller test, verify it passes
+- [X] T064 [P] [US1] Generate Responses controller: `rails g controller Responses edit update submit`
+- [X] T065 [US1] Write failing controller test for `ResponsesController#edit` in `test/controllers/responses_controller_test.rb`
+- [X] T066 [US1] Implement `ResponsesController#edit`: find response by token, eager load questionnaire/categories/questions/options, render form
+- [X] T067 [US1] Run controller test, verify it passes
+- [X] T068 [US1] Write failing controller test for `ResponsesController#update` (autosave)
+- [X] T069 [US1] Implement `ResponsesController#update`: accept nested answers_attributes, update response, return Turbo Stream with save status
+- [X] T070 [US1] Run controller test, verify it passes
 
 ### Service Objects for User Story 1
 
-- [ ] T071 [US1] Create service directory: `mkdir -p app/services/responses`
-- [ ] T072 [US1] Write failing test for `Responses::SubmitFinal` service in `test/services/responses/submit_final_test.rb`
-- [ ] T073 [US1] Implement `Responses::SubmitFinal` service in `app/services/responses/submit_final.rb`:
+- [X] T071 [US1] Create service directory: `mkdir -p app/services/responses`
+- [X] T072 [US1] Write failing test for `Responses::SubmitFinal` service in `test/services/responses/submit_final_test.rb`
+- [X] T073 [US1] Implement `Responses::SubmitFinal` service in `app/services/responses/submit_final.rb`:
   - Validate all required questions answered
   - Update response status to submitted
   - Set submitted_at timestamp
   - Lock questionnaire if first submission
   - Generate profile with unique token
   - Return success/failure result
-- [ ] T074 [US1] Run service test, verify it passes: `rails test test/services/responses/submit_final_test.rb`
-- [ ] T075 [US1] Write failing controller test for `ResponsesController#submit` using SubmitFinal service
-- [ ] T076 [US1] Implement `ResponsesController#submit`: call Responses::SubmitFinal, redirect to profile on success
-- [ ] T077 [US1] Run controller test, verify it passes
-- [ ] T078 [P] [US1] Create service directory: `mkdir -p app/services/profiles`
+- [X] T074 [US1] Run service test, verify it passes: `rails test test/services/responses/submit_final_test.rb`
+- [X] T075 [US1] Write failing controller test for `ResponsesController#submit` using SubmitFinal service
+- [X] T076 [US1] Implement `ResponsesController#submit`: call Responses::SubmitFinal, redirect to profile on success
+- [X] T077 [US1] Run controller test, verify it passes
+- [X] T078 [P] [US1] Create service directory: `mkdir -p app/services/profiles`
 - [ ] T079 [US1] Write failing test for Profile generation in `test/services/profiles/generate_shareable_link_test.rb`
 - [ ] T080 [US1] Implement `Profiles::GenerateShareableLink` service in `app/services/profiles/generate_shareable_link.rb` (if needed separately from SubmitFinal)
 - [ ] T081 [US1] Run service test, verify it passes
-- [ ] T082 [P] [US1] Generate Profiles controller: `rails g controller Profiles show`
-- [ ] T083 [US1] Write failing controller test for `ProfilesController#show` in `test/controllers/profiles_controller_test.rb`
-- [ ] T084 [US1] Implement `ProfilesController#show`: find profile by token, eager load response/answers/questions/categories, render 404 if not found
-- [ ] T085 [US1] Run controller test, verify it passes
+- [X] T082 [P] [US1] Generate Profiles controller: `rails g controller Profiles show`
+- [X] T083 [US1] Write failing controller test for `ProfilesController#show` in `test/controllers/profiles_controller_test.rb`
+- [X] T084 [US1] Implement `ProfilesController#show`: find profile by token, eager load response/answers/questions/categories, render 404 if not found
+- [X] T085 [US1] Run controller test, verify it passes
 
 ### Views for User Story 1
 
-- [ ] T086 [P] [US1] Create questionnaire landing page view in `app/views/questionnaires/show.html.erb`:
+- [X] T086 [P] [US1] Create questionnaire landing page view in `app/views/questionnaires/show.html.erb`:
   - Questionnaire title and description
   - Form to enter employee name
   - "Start Questionnaire" button
   - DaisyUI components: card, form-control, btn-primary
-- [ ] T087 [P] [US1] Create questionnaire form view in `app/views/responses/edit.html.erb`:
+- [X] T087 [P] [US1] Create questionnaire form view in `app/views/responses/edit.html.erb`:
   - Form with all categories and questions
   - Dynamic question rendering based on type (text, single_choice, multiple_choice, yes_no)
   - Autosave status indicator
   - Submit button with Turbo confirm
   - Turbo Frame wrapping form
   - DaisyUI components: form-control, textarea, radio, checkbox, btn-primary
-- [ ] T088 [P] [US1] Create autosave status partial in `app/views/responses/_autosave_status.html.erb`:
+- [X] T088 [P] [US1] Create autosave status partial in `app/views/responses/_autosave_status.html.erb`:
   - "Saving..." with loading spinner
   - "✓ Saved" with success styling
   - "Error saving" with error styling
   - DaisyUI components: loading-spinner, text-success, text-error
-- [ ] T089 [P] [US1] Create profile view in `app/views/profiles/show.html.erb`:
+- [X] T089 [P] [US1] Create profile view in `app/views/profiles/show.html.erb`:
   - Employee name as header
   - Categories as section headers
   - Questions and answers organized by category
@@ -190,8 +190,8 @@
 
 ### JavaScript (Stimulus Controllers) for User Story 1
 
-- [ ] T090 [US1] Generate Stimulus autosave controller: `rails g stimulus autosave`
-- [ ] T091 [US1] Implement autosave controller in `app/javascript/controllers/autosave_controller.js`:
+- [X] T090 [US1] Generate Stimulus autosave controller: `rails g stimulus autosave`
+- [X] T091 [US1] Implement autosave controller in `app/javascript/controllers/autosave_controller.js`:
   - Debounce save to 2 seconds after typing stops
   - Immediate save on blur
   - Show "Saving..." status
@@ -201,8 +201,8 @@
 
 ### Integration for User Story 1
 
-- [ ] T093 [US1] Add nested attributes support to Response model for answers: `accepts_nested_attributes_for :answers`
-- [ ] T094 [US1] Add strong parameters for nested answers in ResponsesController
+- [X] T093 [US1] Add nested attributes support to Response model for answers: `accepts_nested_attributes_for :answers`
+- [X] T094 [US1] Add strong parameters for nested answers in ResponsesController
 - [ ] T095 [US1] Test draft save/restore: start questionnaire, answer questions, leave, return to same link, verify answers restored
 - [ ] T096 [US1] Run full system test: `rails test:system test/system/employee_completes_questionnaire_test.rb`
 - [ ] T097 [US1] Run full system test: `rails test:system test/system/profile_viewing_test.rb`

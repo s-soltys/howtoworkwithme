@@ -1,0 +1,81 @@
+<div class="min-h-screen bg-base-200 p-4 py-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h1 class="card-title text-3xl mb-2"><%= @employee&.name || "Anonymous" %>'s Profile</h1>
+        <p class="text-base-content/70 mb-6">
+          <%= @questionnaire.title %>
+          <% if @response.submitted_at %>
+            • Submitted <%= time_ago_in_words(@response.submitted_at) %> ago
+          <% end %>
+        </p>
+
+        <% if flash[:notice] %>
+          <div class="alert alert-success mb-4">
+            <span><%= flash[:notice] %></span>
+          </div>
+        <% end %>
+
+        <div class="space-y-8">
+          <% @questionnaire.categories.each do |category| %>
+            <div>
+              <h2 class="text-2xl font-bold mb-4 border-b pb-2"><%= category.name %></h2>
+
+              <div class="space-y-4 pl-4">
+                <% category.questions.each do |question| %>
+                  <% answer = @response.answers.find { |a| a.question_id == question.id } %>
+
+                  <div class="mb-6">
+                    <h3 class="font-semibold text-lg mb-2"><%= question.text %></h3>
+
+                    <% if answer %>
+                      <div class="text-base-content/80 pl-4">
+                        <% case question.question_type %>
+                        <% when "text" %>
+                          <p class="whitespace-pre-wrap"><%= answer.text_value %></p>
+
+                        <% when "single_choice" %>
+                          <% if answer.selected_option_id %>
+                            <% option = question.question_options.find { |o| o.id == answer.selected_option_id } %>
+                            <p><%= option&.text %></p>
+                          <% else %>
+                            <p class="text-base-content/50 italic">Not answered</p>
+                          <% end %>
+
+                        <% when "multiple_choice" %>
+                          <% if answer.selected_option_ids.present? %>
+                            <ul class="list-disc list-inside">
+                              <% answer.selected_option_ids.each do |option_id| %>
+                                <% option = question.question_options.find { |o| o.id == option_id } %>
+                                <li><%= option&.text %></li>
+                              <% end %>
+                            </ul>
+                          <% else %>
+                            <p class="text-base-content/50 italic">Not answered</p>
+                          <% end %>
+
+                        <% when "yes_no" %>
+                          <% if answer.boolean_value.nil? %>
+                            <p class="text-base-content/50 italic">Not answered</p>
+                          <% else %>
+                            <p><%= answer.boolean_value ? "Yes" : "No" %></p>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <p class="text-base-content/50 italic pl-4">Not answered</p>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-8 text-center text-sm text-base-content/50">
+          <p>This profile has been viewed <%= @profile.viewed_count %> <%= "time".pluralize(@profile.viewed_count) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

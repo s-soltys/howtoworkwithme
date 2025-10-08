@@ -1,0 +1,94 @@
+<div class="min-h-screen bg-base-200 p-4 py-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h1 class="card-title text-3xl mb-2"><%= @questionnaire.title %></h1>
+        <p class="text-base-content/70 mb-4">Employee: <%= @response.employee&.name || "Anonymous" %></p>
+
+        <div id="autosave_status" class="mb-4">
+          <%= render "responses/autosave_status", status: "idle" %>
+        </div>
+
+        <% if flash[:alert] %>
+          <div class="alert alert-error mb-4">
+            <span><%= flash[:alert] %></span>
+          </div>
+        <% end %>
+
+        <%= turbo_frame_tag "questionnaire_form" do %>
+          <%= form_with model: @response, url: response_path(@response.unique_token), method: :patch, data: { controller: "autosave", autosave_target: "form", action: "input->autosave#save blur->autosave#saveImmediate" } do |f| %>
+
+            <% @questionnaire.categories.each do |category| %>
+              <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-4 border-b pb-2"><%= category.name %></h2>
+
+                <% category.questions.each_with_index do |question, index| %>
+                  <div class="mb-6 pl-4">
+                    <label class="label">
+                      <span class="label-text text-lg font-semibold">
+                        <%= "#{index + 1}. #{question.text}" %>
+                        <% if question.required? %>
+                          <span class="text-error">*</span>
+                        <% end %>
+                      </span>
+                    </label>
+
+                    <% answer = @response.answers.find_or_initialize_by(question: question) %>
+
+                    <%= f.fields_for :answers, answer do |answer_fields| %>
+                      <%= answer_fields.hidden_field :id if answer.persisted? %>
+                      <%= answer_fields.hidden_field :question_id, value: question.id %>
+
+                      <% case question.question_type %>
+                      <% when "text" %>
+                        <div class="form-control">
+                          <%= answer_fields.text_area :text_value, class: "textarea textarea-bordered w-full", rows: 3, placeholder: question.text, "aria-label": question.text %>
+                        </div>
+
+                      <% when "single_choice" %>
+                        <div class="form-control space-y-2">
+                          <% question.question_options.each do |option| %>
+                            <label class="label cursor-pointer justify-start gap-2">
+                              <%= answer_fields.radio_button :selected_option_id, option.id, class: "radio radio-primary" %>
+                              <span class="label-text"><%= option.text %></span>
+                            </label>
+                          <% end %>
+                        </div>
+
+                      <% when "multiple_choice" %>
+                        <div class="form-control space-y-2">
+                          <% question.question_options.each do |option| %>
+                            <label class="label cursor-pointer justify-start gap-2">
+                              <%= answer_fields.check_box :selected_option_ids, { multiple: true, class: "checkbox checkbox-primary" }, option.id, nil %>
+                              <span class="label-text"><%= option.text %></span>
+                            </label>
+                          <% end %>
+                        </div>
+
+                      <% when "yes_no" %>
+                        <div class="form-control flex-row gap-4">
+                          <label class="label cursor-pointer gap-2">
+                            <%= answer_fields.radio_button :boolean_value, true, class: "radio radio-primary" %>
+                            <span class="label-text">Yes</span>
+                          </label>
+                          <label class="label cursor-pointer gap-2">
+                            <%= answer_fields.radio_button :boolean_value, false, class: "radio radio-primary" %>
+                            <span class="label-text">No</span>
+                          </label>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <div class="card-actions justify-end mt-8 gap-4">
+          <%= button_to "Submit Questionnaire", submit_response_path(@response.unique_token), method: :post, class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

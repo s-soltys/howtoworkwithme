@@ -14,4 +14,19 @@ Rails.application.routes.draw do
 
   # Admin routes
   get "admin/component-library", to: "admin#component_library"
+
+  # User Story 1: Employee completes questionnaire and generates profile
+  resources :questionnaires, param: :unique_token, only: [:show] do
+    member do
+      post :start
+    end
+  end
+
+  resources :responses, param: :unique_token, only: [:edit, :update] do
+    member do
+      post :submit
+    end
+  end
+
+  resources :profiles, param: :unique_token, only: [:show]
 end

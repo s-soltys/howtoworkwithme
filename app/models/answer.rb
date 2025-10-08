@@ -11,16 +11,26 @@ class Answer < ApplicationRecord
   private
 
   def answer_matches_question_type
-    case question&.question_type
+    return unless question
+
+    case question.question_type
     when "text"
-      errors.add(:text_value, "must be present for text questions") if text_value.blank?
+      if question.required? && text_value.blank?
+        errors.add(:text_value, "must be present for required text questions")
+      end
       errors.add(:text_value, "must be 1000 characters or less") if text_value.present? && text_value.length > 1000
     when "single_choice"
-      errors.add(:selected_option_id, "must be present for single choice questions") if selected_option_id.blank?
+      if question.required? && selected_option_id.blank?
+        errors.add(:selected_option_id, "must be present for required single choice questions")
+      end
     when "multiple_choice"
-      errors.add(:selected_option_ids, "must be present for multiple choice questions") if selected_option_ids.blank? || selected_option_ids.empty?
+      if question.required? && (selected_option_ids.blank? || selected_option_ids.empty?)
+        errors.add(:selected_option_ids, "must be present for required multiple choice questions")
+      end
     when "yes_no"
-      errors.add(:boolean_value, "must be present for yes/no questions") if boolean_value.nil?
+      if question.required? && boolean_value.nil?
+        errors.add(:boolean_value, "must be present for required yes/no questions")
+      end
     end
   end
 
