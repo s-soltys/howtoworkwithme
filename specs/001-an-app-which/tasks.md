@@ -467,8 +467,8 @@
 
 - [X] T190 [Polish] Review all controller actions for N+1 queries, add `includes` where needed
 - [X] T191 [Polish] Add database indexes review: verify all foreign keys indexed, composite indexes in place
-- [ ] T192 [Polish] Test performance: create questionnaire with 20 questions, have 50 employees respond, verify dashboard loads in <3s
-- [ ] T193 [Polish] Add pagination to responses table if exceeds 100 employees (optional future enhancement)
+- [X] T192 [Polish] Test performance: create questionnaire with 20 questions, have 50 employees respond, verify dashboard loads in <3s
+- [X] T193 [Polish] Add pagination to responses table if exceeds 100 employees (optional future enhancement)
 
 ### User Experience Improvements
 
@@ -485,7 +485,7 @@
 - [X] T201 [P] [Polish] Run Brakeman security scan: `bundle exec brakeman`
 - [X] T202 [Polish] Address any Brakeman security warnings
 - [X] T203 [P] [Polish] Update README with setup instructions from quickstart.md
-- [ ] T204 [Polish] Run quickstart.md validation: follow setup instructions from scratch, verify app works
+- [X] T204 [Polish] Run quickstart.md validation: follow setup instructions from scratch, verify app works
 - [X] T205 [Polish] Run full test suite: `rails test` and `rails test:system`
 - [X] T206 [Polish] Verify all tests pass with no warnings
 

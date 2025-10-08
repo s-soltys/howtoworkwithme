@@ -1,17 +1,16 @@
 {
   "permissions": {
     "allow": [
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(.specify/scripts/bash/common.sh:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
       "Bash(.specify/scripts/bash/setup-plan.sh:*)",
+      "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
       "Bash(cat:*)",
       "Bash(rails --version)",
       "WebSearch",
-      "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
-      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
       "Bash(bundle install:*)",
       "Bash(rails:*)",
-      "Bash(if [ -d \"/Users/szymon/howtoworkwithme/specs/001-an-app-which/checklists\" ])",
-      "Bash(then echo \"exists\")",
-      "Bash(else echo \"not found\")",
       "Bash(fi)",
       "Bash(mkdir:*)",
       "Bash(bundle exec:*)"
