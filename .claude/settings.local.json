@@ -21,7 +21,9 @@
       "WebFetch(domain:bundlephobia.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:npmtrends.com)",
-      "Bash(bin/importmap:*)"
+      "Bash(bin/importmap:*)",
+      "Bash(/dev/null)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []

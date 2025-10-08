@@ -76,6 +76,24 @@
                             <span class="label-text">No</span>
                           </label>
                         </div>
+
+                      <% when "slider" %>
+                        <%= render "responses/question_types/slider", question: question, answer: answer %>
+
+                      <% when "swipe_yes_no" %>
+                        <%= render "responses/question_types/swipe_yes_no", question: question, answer: answer %>
+
+                      <% when "card_sort" %>
+                        <%= render "responses/question_types/card_sort", question: question, answer: answer %>
+
+                      <% when "energy_map" %>
+                        <%= render "responses/question_types/energy_map", question: question, answer: answer %>
+
+                      <% when "emoji_reaction" %>
+                        <%= render "responses/question_types/emoji_reaction", question: question, answer: answer %>
+
+                      <% when "character_sheet" %>
+                        <%= render "responses/question_types/character_sheet", question: question, answer: answer %>
                       <% end %>
                     <% end %>
                   </div>

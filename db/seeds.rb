@@ -19,14 +19,13 @@ puts "✅ Created questionnaire: #{questionnaire.title}"
 
 # Create categories for different question types
 categories_data = [
-  { name: "Personal Preferences", description: "Questions about your personal working style" },
-  { name: "Work Style Assessment", description: "Understanding how you work best" },
-  { name: "Team Dynamics", description: "Your preferences for collaboration and communication" }
+  { name: "Personal Preferences" },
+  { name: "Work Style Assessment" },
+  { name: "Team Dynamics" }
 ]
 
 categories = categories_data.map.with_index do |cat_data, index|
   questionnaire.categories.find_or_create_by!(name: cat_data[:name]) do |c|
-    c.description = cat_data[:description]
     c.position = index + 1
   end
 end
@@ -179,10 +178,7 @@ position += 1
 puts "  ✅ Created Character Sheet question"
 
 # Create a sample employee response
-employee = org.employees.find_or_create_by!(name: "Sample Employee") do |e|
-  e.unique_token = SecureRandom.urlsafe_base64(12)
-  e.email = "sample@example.com"
-end
+employee = org.employees.find_or_create_by!(name: "Sample Employee", email: "sample@example.com")
 
 response = employee.responses.find_or_create_by!(questionnaire: questionnaire) do |r|
   r.unique_token = SecureRandom.urlsafe_base64(12)
